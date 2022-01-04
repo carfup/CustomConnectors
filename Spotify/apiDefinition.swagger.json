@@ -1,0 +1,3393 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Spotify",
+    "description": "Custom connector around the Spotify API.\nFunctionalities available around users, playlists, albums, tracks.",
+    "version": "1.0"
+  },
+  "host": "api.spotify.com",
+  "basePath": "/v1",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [],
+  "produces": [],
+  "paths": {
+    "/me/player/currently-playing": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "context": {
+                  "type": "object",
+                  "properties": {
+                    "external_urls": {
+                      "type": "object",
+                      "properties": {
+                        "spotify": {
+                          "type": "string",
+                          "description": "spotify"
+                        }
+                      },
+                      "description": "external_urls"
+                    },
+                    "href": {
+                      "type": "string",
+                      "description": "href"
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "type"
+                    },
+                    "uri": {
+                      "type": "string",
+                      "description": "uri"
+                    }
+                  },
+                  "description": "context"
+                },
+                "timestamp": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "timestamp"
+                },
+                "progress_ms": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "progress_ms"
+                },
+                "is_playing": {
+                  "type": "boolean",
+                  "description": "is_playing"
+                },
+                "currently_playing_type": {
+                  "type": "string",
+                  "description": "currently_playing_type"
+                },
+                "item": {
+                  "type": "object",
+                  "properties": {
+                    "album": {
+                      "type": "object",
+                      "properties": {
+                        "album_type": {
+                          "type": "string",
+                          "description": "album_type"
+                        },
+                        "external_urls": {
+                          "type": "object",
+                          "properties": {
+                            "spotify": {
+                              "type": "string",
+                              "description": "spotify"
+                            }
+                          },
+                          "description": "external_urls"
+                        },
+                        "href": {
+                          "type": "string",
+                          "description": "href"
+                        },
+                        "id": {
+                          "type": "string",
+                          "description": "id"
+                        },
+                        "images": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "height": {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "height"
+                              },
+                              "url": {
+                                "type": "string",
+                                "description": "url"
+                              },
+                              "width": {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "width"
+                              }
+                            }
+                          },
+                          "description": "images"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "name"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "type"
+                        },
+                        "uri": {
+                          "type": "string",
+                          "description": "uri"
+                        }
+                      },
+                      "description": "album"
+                    },
+                    "artists": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "external_urls": {
+                            "type": "object",
+                            "properties": {
+                              "spotify": {
+                                "type": "string",
+                                "description": "spotify"
+                              }
+                            },
+                            "description": "external_urls"
+                          },
+                          "href": {
+                            "type": "string",
+                            "description": "href"
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "id"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "name"
+                          },
+                          "type": {
+                            "type": "string",
+                            "description": "type"
+                          },
+                          "uri": {
+                            "type": "string",
+                            "description": "uri"
+                          }
+                        }
+                      },
+                      "description": "artists"
+                    },
+                    "available_markets": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "available_markets"
+                    },
+                    "disc_number": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "disc_number"
+                    },
+                    "duration_ms": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "duration_ms"
+                    },
+                    "explicit": {
+                      "type": "boolean",
+                      "description": "explicit"
+                    },
+                    "external_ids": {
+                      "type": "object",
+                      "properties": {
+                        "isrc": {
+                          "type": "string",
+                          "description": "isrc"
+                        }
+                      },
+                      "description": "external_ids"
+                    },
+                    "external_urls": {
+                      "type": "object",
+                      "properties": {
+                        "spotify": {
+                          "type": "string",
+                          "description": "spotify"
+                        }
+                      },
+                      "description": "external_urls"
+                    },
+                    "href": {
+                      "type": "string",
+                      "description": "href"
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "id"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "name"
+                    },
+                    "popularity": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "popularity"
+                    },
+                    "preview_url": {
+                      "type": "string",
+                      "description": "preview_url"
+                    },
+                    "track_number": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "track_number"
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "type"
+                    },
+                    "uri": {
+                      "type": "string",
+                      "description": "uri"
+                    }
+                  },
+                  "description": "item"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get the User's Currently Playing Track",
+        "operationId": "GetUserCurrentPlayingTrack",
+        "parameters": [],
+        "description": "Get the object currently being played on the user\u2019s Spotify account."
+      }
+    },
+    "/me/player/play": {
+      "put": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        },
+        "summary": "Start/Resume Playback",
+        "operationId": "StartResumePlayback",
+        "parameters": [],
+        "description": "Start a new context or resume current playback on the user\u2019s active device. (Spotify PREMIUM)"
+      }
+    },
+    "/me/playlists": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "href": {
+                  "type": "string",
+                  "description": "href"
+                },
+                "items": {
+                  "type": "array",
+                  "items": {},
+                  "description": "items"
+                },
+                "limit": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "limit"
+                },
+                "next": {
+                  "type": "string",
+                  "description": "next"
+                },
+                "offset": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "offset"
+                },
+                "previous": {
+                  "type": "string",
+                  "description": "previous"
+                },
+                "total": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "total"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get a List of Current User's Playlists",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 20,
+            "description": "Maximum number of results to return.",
+            "x-ms-summary": "Limit"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "description": "The index of the first result to return.",
+            "x-ms-summary": "Offset"
+          }
+        ],
+        "operationId": "GetListCurrentUserPlaylists",
+        "description": "Get a list of the playlists owned or followed by the current Spotify user."
+      }
+    },
+    "/browse/new-releases": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "albums": {
+                  "type": "object",
+                  "properties": {
+                    "href": {
+                      "type": "string",
+                      "description": "href"
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "album_type": {
+                            "type": "string",
+                            "description": "album_type"
+                          },
+                          "artists": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "external_urls": {
+                                  "type": "object",
+                                  "properties": {
+                                    "spotify": {
+                                      "type": "string",
+                                      "description": "spotify"
+                                    }
+                                  },
+                                  "description": "external_urls"
+                                },
+                                "href": {
+                                  "type": "string",
+                                  "description": "href"
+                                },
+                                "id": {
+                                  "type": "string",
+                                  "description": "id"
+                                },
+                                "name": {
+                                  "type": "string",
+                                  "description": "name"
+                                },
+                                "type": {
+                                  "type": "string",
+                                  "description": "type"
+                                },
+                                "uri": {
+                                  "type": "string",
+                                  "description": "uri"
+                                }
+                              }
+                            },
+                            "description": "artists"
+                          },
+                          "available_markets": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "description": "available_markets"
+                          },
+                          "external_urls": {
+                            "type": "object",
+                            "properties": {
+                              "spotify": {
+                                "type": "string",
+                                "description": "spotify"
+                              }
+                            },
+                            "description": "external_urls"
+                          },
+                          "href": {
+                            "type": "string",
+                            "description": "href"
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "id"
+                          },
+                          "images": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "height": {
+                                  "type": "integer",
+                                  "format": "int32",
+                                  "description": "height"
+                                },
+                                "url": {
+                                  "type": "string",
+                                  "description": "url"
+                                },
+                                "width": {
+                                  "type": "integer",
+                                  "format": "int32",
+                                  "description": "width"
+                                }
+                              }
+                            },
+                            "description": "images"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "name"
+                          },
+                          "type": {
+                            "type": "string",
+                            "description": "type"
+                          },
+                          "uri": {
+                            "type": "string",
+                            "description": "uri"
+                          }
+                        }
+                      },
+                      "description": "items"
+                    },
+                    "limit": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "limit"
+                    },
+                    "next": {
+                      "type": "string",
+                      "description": "next"
+                    },
+                    "offset": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "offset"
+                    },
+                    "previous": {
+                      "type": "string",
+                      "description": "previous"
+                    },
+                    "total": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "total"
+                    }
+                  },
+                  "description": "albums"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get All New Releases",
+        "operationId": "GetAllNewReleases",
+        "description": "Get a list of new album releases featured in Spotify.",
+        "parameters": []
+      }
+    },
+    "/search": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "artists": {
+                  "type": "object",
+                  "properties": {
+                    "href": {
+                      "type": "string",
+                      "description": "href"
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "external_urls": {
+                            "type": "object",
+                            "properties": {
+                              "spotify": {
+                                "type": "string",
+                                "description": "spotify"
+                              }
+                            },
+                            "description": "external_urls"
+                          },
+                          "genres": {
+                            "type": "array",
+                            "items": {},
+                            "description": "genres"
+                          },
+                          "href": {
+                            "type": "string",
+                            "description": "href"
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "id"
+                          },
+                          "images": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "height": {
+                                  "type": "integer",
+                                  "format": "int32",
+                                  "description": "height"
+                                },
+                                "url": {
+                                  "type": "string",
+                                  "description": "url"
+                                },
+                                "width": {
+                                  "type": "integer",
+                                  "format": "int32",
+                                  "description": "width"
+                                }
+                              }
+                            },
+                            "description": "images"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "name"
+                          },
+                          "popularity": {
+                            "type": "integer",
+                            "format": "int32",
+                            "description": "popularity"
+                          },
+                          "type": {
+                            "type": "string",
+                            "description": "type"
+                          },
+                          "uri": {
+                            "type": "string",
+                            "description": "uri"
+                          }
+                        }
+                      },
+                      "description": "items"
+                    },
+                    "limit": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "limit"
+                    },
+                    "next": {
+                      "type": "string",
+                      "description": "next"
+                    },
+                    "offset": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "offset"
+                    },
+                    "previous": {
+                      "type": "string",
+                      "description": "previous"
+                    },
+                    "total": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "total"
+                    }
+                  },
+                  "description": "artists"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Search for an Item",
+        "description": "Get Spotify Catalog information about albums, artists, playlists, tracks, shows or episodes that match a keyword string.",
+        "operationId": "SearchAnItem",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Search query keywords and optional field filters and operators.",
+            "x-ms-summary": "Keywords"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "album",
+              "artist",
+              "playlist",
+              "track",
+              "show",
+              "episode"
+            ],
+            "x-ms-summary": "Type",
+            "description": "Search results include hits from all the specified item types."
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 20,
+            "description": "Maximum number of results to return.",
+            "x-ms-summary": "Limit"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "description": "The index of the first result to return.",
+            "x-ms-summary": "Offset"
+          }
+        ]
+      }
+    },
+    "/browse/featured-playlists": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "description": "message"
+                },
+                "playlists": {
+                  "type": "object",
+                  "properties": {
+                    "href": {
+                      "type": "string",
+                      "description": "href"
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "collaborative": {
+                            "type": "boolean",
+                            "description": "collaborative"
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "description"
+                          },
+                          "external_urls": {
+                            "type": "object",
+                            "properties": {
+                              "spotify": {
+                                "type": "string",
+                                "description": "spotify"
+                              }
+                            },
+                            "description": "external_urls"
+                          },
+                          "href": {
+                            "type": "string",
+                            "description": "href"
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "id"
+                          },
+                          "images": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "height": {
+                                  "type": "integer",
+                                  "format": "int32",
+                                  "description": "height"
+                                },
+                                "url": {
+                                  "type": "string",
+                                  "description": "url"
+                                },
+                                "width": {
+                                  "type": "integer",
+                                  "format": "int32",
+                                  "description": "width"
+                                }
+                              }
+                            },
+                            "description": "images"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "name"
+                          },
+                          "owner": {
+                            "type": "object",
+                            "properties": {
+                              "external_urls": {
+                                "type": "object",
+                                "properties": {
+                                  "spotify": {
+                                    "type": "string",
+                                    "description": "spotify"
+                                  }
+                                },
+                                "description": "external_urls"
+                              },
+                              "href": {
+                                "type": "string",
+                                "description": "href"
+                              },
+                              "id": {
+                                "type": "string",
+                                "description": "id"
+                              },
+                              "type": {
+                                "type": "string",
+                                "description": "type"
+                              },
+                              "uri": {
+                                "type": "string",
+                                "description": "uri"
+                              }
+                            },
+                            "description": "owner"
+                          },
+                          "public": {
+                            "type": "string",
+                            "description": "public"
+                          },
+                          "snapshot_id": {
+                            "type": "string",
+                            "description": "snapshot_id"
+                          },
+                          "tracks": {
+                            "type": "object",
+                            "properties": {
+                              "href": {
+                                "type": "string",
+                                "description": "href"
+                              },
+                              "total": {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "total"
+                              }
+                            },
+                            "description": "tracks"
+                          },
+                          "type": {
+                            "type": "string",
+                            "description": "type"
+                          },
+                          "uri": {
+                            "type": "string",
+                            "description": "uri"
+                          }
+                        }
+                      },
+                      "description": "items"
+                    },
+                    "limit": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "limit"
+                    },
+                    "next": {
+                      "type": "string",
+                      "description": "next"
+                    },
+                    "offset": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "offset"
+                    },
+                    "previous": {
+                      "type": "string",
+                      "description": "previous"
+                    },
+                    "total": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "total"
+                    }
+                  },
+                  "description": "playlists"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get All Featured Playlists",
+        "operationId": "GetAllFeaturedPlaylists",
+        "description": "Get a list of Spotify featured playlists.",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "Provide this parameter if you want the list of returned items to be relevant to a particular country. If omitted, the returned items will be relevant to all countries.",
+            "x-ms-summary": "Country"
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "The desired language, consisting of a lowercase ISO 639-1 language code and an uppercase ISO 3166-1 alpha-2 country code, joined by an underscore.",
+            "x-ms-summary": "Language code"
+          },
+          {
+            "name": "timestamp",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time",
+            "description": "A timestamp in ISO 8601 format: yyyy-MM-ddTHH:mm:ss. Use this parameter to specify the user\u2019s local time to get results tailored for that specific date and time in the day.",
+            "x-ms-summary": "Timestamp"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 20,
+            "x-ms-summary": "Limit",
+            "description": "The maximum number of items to return."
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 0,
+            "x-ms-summary": "Offset",
+            "description": "The index of the first item to return"
+          }
+        ]
+      }
+    },
+    "/browse/categories": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "categories": {
+                  "type": "object",
+                  "properties": {
+                    "href": {
+                      "type": "string",
+                      "description": "href"
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "href": {
+                            "type": "string",
+                            "description": "href"
+                          },
+                          "icons": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "height": {
+                                  "type": "integer",
+                                  "format": "int32",
+                                  "description": "height"
+                                },
+                                "url": {
+                                  "type": "string",
+                                  "description": "url"
+                                },
+                                "width": {
+                                  "type": "integer",
+                                  "format": "int32",
+                                  "description": "width"
+                                }
+                              }
+                            },
+                            "description": "icons"
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "id"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "name"
+                          }
+                        }
+                      },
+                      "description": "items"
+                    },
+                    "limit": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "limit"
+                    },
+                    "next": {
+                      "type": "string",
+                      "description": "next"
+                    },
+                    "offset": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "offset"
+                    },
+                    "previous": {
+                      "type": "string",
+                      "description": "previous"
+                    },
+                    "total": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "total"
+                    }
+                  },
+                  "description": "categories"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get All Categories",
+        "operationId": "GetAllCategories",
+        "description": "Get a list of categories used to tag items in Spotify.",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "Provide this parameter if you want to narrow the list of returned categories to those relevant to a particular country.",
+            "x-ms-summary": "Country code"
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "The desired language, consisting of a lowercase ISO 639-1 language code and an uppercase ISO 3166-1 alpha-2 country code, joined by an underscore.",
+            "x-ms-summary": "Language code"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 20,
+            "x-ms-summary": "Limit",
+            "description": "The maximum number of items to return."
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "description": "The index of the first item to return",
+            "x-ms-summary": "Offset"
+          }
+        ]
+      }
+    },
+    "/browse/categories/{category_id}": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "href": {
+                  "type": "string",
+                  "description": "href"
+                },
+                "icons": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "height": {
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "height"
+                      },
+                      "url": {
+                        "type": "string",
+                        "description": "url"
+                      },
+                      "width": {
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "width"
+                      }
+                    }
+                  },
+                  "description": "icons"
+                },
+                "id": {
+                  "type": "string",
+                  "description": "id"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "name"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get a Category",
+        "operationId": "GetCategory",
+        "description": "Get a single category used to tag items in Spotify.",
+        "parameters": [
+          {
+            "name": "category_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "x-ms-summary": "Category ID",
+            "description": "The Spotify category ID for the category."
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "x-ms-summary": "Country code",
+            "description": "Provide this parameter if you want the list of returned items to be relevant to a particular country. If omitted, the returned items will be relevant to all countries."
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "x-ms-summary": "Language code",
+            "description": "The desired language, consisting of a lowercase ISO 639-1 language code and an uppercase ISO 3166-1 alpha-2 country code, joined by an underscore."
+          }
+        ]
+      }
+    },
+    "/browse/categories/{category_id}/playlists": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "playlists": {
+                  "type": "object",
+                  "properties": {
+                    "href": {
+                      "type": "string",
+                      "description": "href"
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "collaborative": {
+                            "type": "boolean",
+                            "description": "collaborative"
+                          },
+                          "description": {
+                            "type": "string",
+                            "description": "description"
+                          },
+                          "external_urls": {
+                            "type": "object",
+                            "properties": {
+                              "spotify": {
+                                "type": "string",
+                                "description": "spotify"
+                              }
+                            },
+                            "description": "external_urls"
+                          },
+                          "href": {
+                            "type": "string",
+                            "description": "href"
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "id"
+                          },
+                          "images": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "height": {
+                                  "type": "integer",
+                                  "format": "int32",
+                                  "description": "height"
+                                },
+                                "url": {
+                                  "type": "string",
+                                  "description": "url"
+                                },
+                                "width": {
+                                  "type": "integer",
+                                  "format": "int32",
+                                  "description": "width"
+                                }
+                              }
+                            },
+                            "description": "images"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "name"
+                          },
+                          "owner": {
+                            "type": "object",
+                            "properties": {
+                              "display_name": {
+                                "type": "string",
+                                "description": "display_name"
+                              },
+                              "external_urls": {
+                                "type": "object",
+                                "properties": {
+                                  "spotify": {
+                                    "type": "string",
+                                    "description": "spotify"
+                                  }
+                                },
+                                "description": "external_urls"
+                              },
+                              "href": {
+                                "type": "string",
+                                "description": "href"
+                              },
+                              "id": {
+                                "type": "string",
+                                "description": "id"
+                              },
+                              "type": {
+                                "type": "string",
+                                "description": "type"
+                              },
+                              "uri": {
+                                "type": "string",
+                                "description": "uri"
+                              }
+                            },
+                            "description": "owner"
+                          },
+                          "primary_color": {
+                            "type": "string",
+                            "description": "primary_color"
+                          },
+                          "public": {
+                            "type": "string",
+                            "description": "public"
+                          },
+                          "snapshot_id": {
+                            "type": "string",
+                            "description": "snapshot_id"
+                          },
+                          "tracks": {
+                            "type": "object",
+                            "properties": {
+                              "href": {
+                                "type": "string",
+                                "description": "href"
+                              },
+                              "total": {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "total"
+                              }
+                            },
+                            "description": "tracks"
+                          },
+                          "type": {
+                            "type": "string",
+                            "description": "type"
+                          },
+                          "uri": {
+                            "type": "string",
+                            "description": "uri"
+                          }
+                        }
+                      },
+                      "description": "items"
+                    },
+                    "limit": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "limit"
+                    },
+                    "next": {
+                      "type": "string",
+                      "description": "next"
+                    },
+                    "offset": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "offset"
+                    },
+                    "previous": {
+                      "type": "string",
+                      "description": "previous"
+                    },
+                    "total": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "total"
+                    }
+                  },
+                  "description": "playlists"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get a Category's Playlists",
+        "operationId": "GetCategoryPlaylists",
+        "description": "Get a list of Spotify playlists tagged with a particular category.",
+        "parameters": [
+          {
+            "name": "category_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The Spotify category ID for the category.",
+            "x-ms-summary": "Category ID"
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "Provide this parameter if you want the list of returned items to be relevant to a particular country. If omitted, the returned items will be relevant to all countries.",
+            "x-ms-summary": "Country code"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 20,
+            "description": "The maximum number of items to return.",
+            "x-ms-summary": "Limit"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "description": "The index of the first item to return",
+            "x-ms-summary": "Offset"
+          }
+        ]
+      }
+    },
+    "/users/{user_id}/playlists": {
+      "post": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "collaborative": {
+                  "type": "boolean",
+                  "description": "collaborative"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "description"
+                },
+                "external_urls": {
+                  "type": "object",
+                  "properties": {
+                    "spotify": {
+                      "type": "string",
+                      "description": "spotify"
+                    }
+                  },
+                  "description": "external_urls"
+                },
+                "followers": {
+                  "type": "object",
+                  "properties": {
+                    "href": {
+                      "type": "string",
+                      "description": "href"
+                    },
+                    "total": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "total"
+                    }
+                  },
+                  "description": "followers"
+                },
+                "href": {
+                  "type": "string",
+                  "description": "href"
+                },
+                "id": {
+                  "type": "string",
+                  "description": "id"
+                },
+                "images": {
+                  "type": "array",
+                  "items": {},
+                  "description": "images"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "name"
+                },
+                "owner": {
+                  "type": "object",
+                  "properties": {
+                    "external_urls": {
+                      "type": "object",
+                      "properties": {
+                        "spotify": {
+                          "type": "string",
+                          "description": "spotify"
+                        }
+                      },
+                      "description": "external_urls"
+                    },
+                    "href": {
+                      "type": "string",
+                      "description": "href"
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "id"
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "type"
+                    },
+                    "uri": {
+                      "type": "string",
+                      "description": "uri"
+                    }
+                  },
+                  "description": "owner"
+                },
+                "public": {
+                  "type": "boolean",
+                  "description": "public"
+                },
+                "snapshot_id": {
+                  "type": "string",
+                  "description": "snapshot_id"
+                },
+                "tracks": {
+                  "type": "object",
+                  "properties": {
+                    "href": {
+                      "type": "string",
+                      "description": "href"
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {},
+                      "description": "items"
+                    },
+                    "limit": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "limit"
+                    },
+                    "next": {
+                      "type": "string",
+                      "description": "next"
+                    },
+                    "offset": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "offset"
+                    },
+                    "previous": {
+                      "type": "string",
+                      "description": "previous"
+                    },
+                    "total": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "total"
+                    }
+                  },
+                  "description": "tracks"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "type"
+                },
+                "uri": {
+                  "type": "string",
+                  "description": "uri"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Create a Playlist",
+        "operationId": "CreatePlaylist",
+        "description": "Create a playlist for a Spotify user. (The playlist will be empty until you add tracks.)",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The user\u2019s Spotify user ID.",
+            "x-ms-summary": "User ID"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "The name for the new playlist",
+                  "title": "name"
+                },
+                "public": {
+                  "type": "boolean",
+                  "description": "If true the playlist will be public, if false it will be private.",
+                  "title": "public",
+                  "enum": [
+                    true,
+                    false
+                  ],
+                  "default": true
+                },
+                "collaborative": {
+                  "type": "boolean",
+                  "description": "If true the playlist will be collaborative. Note that to create a collaborative playlist you must also set public to false.",
+                  "title": "collaborative",
+                  "enum": [
+                    true,
+                    false
+                  ],
+                  "default": false
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Description",
+                  "title": "description"
+                }
+              },
+              "required": [
+                "name"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "/playlists/{playlist_id}": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "collaborative": {
+                  "type": "boolean",
+                  "description": "collaborative"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "description"
+                },
+                "external_urls": {
+                  "type": "object",
+                  "properties": {
+                    "spotify": {
+                      "type": "string",
+                      "description": "spotify"
+                    }
+                  },
+                  "description": "external_urls"
+                },
+                "followers": {
+                  "type": "object",
+                  "properties": {
+                    "href": {
+                      "type": "string",
+                      "description": "href"
+                    },
+                    "total": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "total"
+                    }
+                  },
+                  "description": "followers"
+                },
+                "href": {
+                  "type": "string",
+                  "description": "href"
+                },
+                "id": {
+                  "type": "string",
+                  "description": "id"
+                },
+                "images": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "url": {
+                        "type": "string",
+                        "description": "url"
+                      }
+                    }
+                  },
+                  "description": "images"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "name"
+                },
+                "owner": {
+                  "type": "object",
+                  "properties": {
+                    "external_urls": {
+                      "type": "object",
+                      "properties": {
+                        "spotify": {
+                          "type": "string",
+                          "description": "spotify"
+                        }
+                      },
+                      "description": "external_urls"
+                    },
+                    "href": {
+                      "type": "string",
+                      "description": "href"
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "id"
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "type"
+                    },
+                    "uri": {
+                      "type": "string",
+                      "description": "uri"
+                    }
+                  },
+                  "description": "owner"
+                },
+                "public": {
+                  "type": "string",
+                  "description": "public"
+                },
+                "snapshot_id": {
+                  "type": "string",
+                  "description": "snapshot_id"
+                },
+                "tracks": {
+                  "type": "object",
+                  "properties": {
+                    "href": {
+                      "type": "string",
+                      "description": "href"
+                    },
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "added_at": {
+                            "type": "string",
+                            "description": "added_at"
+                          },
+                          "added_by": {
+                            "type": "object",
+                            "properties": {
+                              "external_urls": {
+                                "type": "object",
+                                "properties": {
+                                  "spotify": {
+                                    "type": "string",
+                                    "description": "spotify"
+                                  }
+                                },
+                                "description": "external_urls"
+                              },
+                              "href": {
+                                "type": "string",
+                                "description": "href"
+                              },
+                              "id": {
+                                "type": "string",
+                                "description": "id"
+                              },
+                              "type": {
+                                "type": "string",
+                                "description": "type"
+                              },
+                              "uri": {
+                                "type": "string",
+                                "description": "uri"
+                              }
+                            },
+                            "description": "added_by"
+                          },
+                          "is_local": {
+                            "type": "boolean",
+                            "description": "is_local"
+                          },
+                          "track": {
+                            "type": "object",
+                            "properties": {
+                              "album": {
+                                "type": "object",
+                                "properties": {
+                                  "album_type": {
+                                    "type": "string",
+                                    "description": "album_type"
+                                  },
+                                  "available_markets": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    },
+                                    "description": "available_markets"
+                                  },
+                                  "external_urls": {
+                                    "type": "object",
+                                    "properties": {
+                                      "spotify": {
+                                        "type": "string",
+                                        "description": "spotify"
+                                      }
+                                    },
+                                    "description": "external_urls"
+                                  },
+                                  "href": {
+                                    "type": "string",
+                                    "description": "href"
+                                  },
+                                  "id": {
+                                    "type": "string",
+                                    "description": "id"
+                                  },
+                                  "images": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "height": {
+                                          "type": "integer",
+                                          "format": "int32",
+                                          "description": "height"
+                                        },
+                                        "url": {
+                                          "type": "string",
+                                          "description": "url"
+                                        },
+                                        "width": {
+                                          "type": "integer",
+                                          "format": "int32",
+                                          "description": "width"
+                                        }
+                                      }
+                                    },
+                                    "description": "images"
+                                  },
+                                  "name": {
+                                    "type": "string",
+                                    "description": "name"
+                                  },
+                                  "type": {
+                                    "type": "string",
+                                    "description": "type"
+                                  },
+                                  "uri": {
+                                    "type": "string",
+                                    "description": "uri"
+                                  }
+                                },
+                                "description": "album"
+                              },
+                              "artists": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "external_urls": {
+                                      "type": "object",
+                                      "properties": {
+                                        "spotify": {
+                                          "type": "string",
+                                          "description": "spotify"
+                                        }
+                                      },
+                                      "description": "external_urls"
+                                    },
+                                    "href": {
+                                      "type": "string",
+                                      "description": "href"
+                                    },
+                                    "id": {
+                                      "type": "string",
+                                      "description": "id"
+                                    },
+                                    "name": {
+                                      "type": "string",
+                                      "description": "name"
+                                    },
+                                    "type": {
+                                      "type": "string",
+                                      "description": "type"
+                                    },
+                                    "uri": {
+                                      "type": "string",
+                                      "description": "uri"
+                                    }
+                                  }
+                                },
+                                "description": "artists"
+                              },
+                              "available_markets": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                },
+                                "description": "available_markets"
+                              },
+                              "disc_number": {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "disc_number"
+                              },
+                              "duration_ms": {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "duration_ms"
+                              },
+                              "explicit": {
+                                "type": "boolean",
+                                "description": "explicit"
+                              },
+                              "external_ids": {
+                                "type": "object",
+                                "properties": {
+                                  "isrc": {
+                                    "type": "string",
+                                    "description": "isrc"
+                                  }
+                                },
+                                "description": "external_ids"
+                              },
+                              "external_urls": {
+                                "type": "object",
+                                "properties": {
+                                  "spotify": {
+                                    "type": "string",
+                                    "description": "spotify"
+                                  }
+                                },
+                                "description": "external_urls"
+                              },
+                              "href": {
+                                "type": "string",
+                                "description": "href"
+                              },
+                              "id": {
+                                "type": "string",
+                                "description": "id"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "name"
+                              },
+                              "popularity": {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "popularity"
+                              },
+                              "preview_url": {
+                                "type": "string",
+                                "description": "preview_url"
+                              },
+                              "track_number": {
+                                "type": "integer",
+                                "format": "int32",
+                                "description": "track_number"
+                              },
+                              "type": {
+                                "type": "string",
+                                "description": "type"
+                              },
+                              "uri": {
+                                "type": "string",
+                                "description": "uri"
+                              }
+                            },
+                            "description": "track"
+                          }
+                        }
+                      },
+                      "description": "items"
+                    },
+                    "limit": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "limit"
+                    },
+                    "next": {
+                      "type": "string",
+                      "description": "next"
+                    },
+                    "offset": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "offset"
+                    },
+                    "previous": {
+                      "type": "string",
+                      "description": "previous"
+                    },
+                    "total": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "total"
+                    }
+                  },
+                  "description": "tracks"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "type"
+                },
+                "uri": {
+                  "type": "string",
+                  "description": "uri"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get a Playlist",
+        "operationId": "GetPlaylist",
+        "description": "Get a playlist owned by a Spotify user.",
+        "parameters": [
+          {
+            "name": "playlist_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The Spotify ID for the playlist.",
+            "x-ms-summary": "Playlist ID"
+          }
+        ]
+      },
+      "put": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        },
+        "summary": "Change a Playlist's Details",
+        "description": "Change a playlist\u2019s name and public/private state. (The user must, of course, own the playlist.)",
+        "operationId": "ChangePlaylistDetails",
+        "parameters": [
+          {
+            "name": "playlist_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The Spotify ID for the playlist.",
+            "x-ms-summary": "Playlist ID"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "name"
+                },
+                "public": {
+                  "type": "boolean",
+                  "description": "If true the playlist will be public, if false it will be private.",
+                  "title": "public",
+                  "enum": [
+                    "",
+                    true,
+                    false
+                  ]
+                },
+                "collaborative": {
+                  "type": "boolean",
+                  "description": "collaborative"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "description"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "/playlists/{playlist_id}/tracks": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "href": {
+                  "type": "string",
+                  "description": "href"
+                },
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "added_at": {
+                        "type": "string",
+                        "description": "added_at"
+                      },
+                      "added_by": {
+                        "type": "object",
+                        "properties": {
+                          "external_urls": {
+                            "type": "object",
+                            "properties": {
+                              "spotify": {
+                                "type": "string",
+                                "description": "spotify"
+                              }
+                            },
+                            "description": "external_urls"
+                          },
+                          "href": {
+                            "type": "string",
+                            "description": "href"
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "id"
+                          },
+                          "type": {
+                            "type": "string",
+                            "description": "type"
+                          },
+                          "uri": {
+                            "type": "string",
+                            "description": "uri"
+                          }
+                        },
+                        "description": "added_by"
+                      },
+                      "is_local": {
+                        "type": "boolean",
+                        "description": "is_local"
+                      },
+                      "track": {
+                        "type": "object",
+                        "properties": {
+                          "album": {
+                            "type": "object",
+                            "properties": {
+                              "album_type": {
+                                "type": "string",
+                                "description": "album_type"
+                              },
+                              "artists": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "external_urls": {
+                                      "type": "object",
+                                      "properties": {
+                                        "spotify": {
+                                          "type": "string",
+                                          "description": "spotify"
+                                        }
+                                      },
+                                      "description": "external_urls"
+                                    },
+                                    "href": {
+                                      "type": "string",
+                                      "description": "href"
+                                    },
+                                    "id": {
+                                      "type": "string",
+                                      "description": "id"
+                                    },
+                                    "name": {
+                                      "type": "string",
+                                      "description": "name"
+                                    },
+                                    "type": {
+                                      "type": "string",
+                                      "description": "type"
+                                    },
+                                    "uri": {
+                                      "type": "string",
+                                      "description": "uri"
+                                    }
+                                  }
+                                },
+                                "description": "artists"
+                              },
+                              "available_markets": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                },
+                                "description": "available_markets"
+                              },
+                              "external_urls": {
+                                "type": "object",
+                                "properties": {
+                                  "spotify": {
+                                    "type": "string",
+                                    "description": "spotify"
+                                  }
+                                },
+                                "description": "external_urls"
+                              },
+                              "href": {
+                                "type": "string",
+                                "description": "href"
+                              },
+                              "id": {
+                                "type": "string",
+                                "description": "id"
+                              },
+                              "images": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "height": {
+                                      "type": "integer",
+                                      "format": "int32",
+                                      "description": "height"
+                                    },
+                                    "url": {
+                                      "type": "string",
+                                      "description": "url"
+                                    },
+                                    "width": {
+                                      "type": "integer",
+                                      "format": "int32",
+                                      "description": "width"
+                                    }
+                                  }
+                                },
+                                "description": "images"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "name"
+                              },
+                              "type": {
+                                "type": "string",
+                                "description": "type"
+                              },
+                              "uri": {
+                                "type": "string",
+                                "description": "uri"
+                              }
+                            },
+                            "description": "album"
+                          },
+                          "artists": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "external_urls": {
+                                  "type": "object",
+                                  "properties": {
+                                    "spotify": {
+                                      "type": "string",
+                                      "description": "spotify"
+                                    }
+                                  },
+                                  "description": "external_urls"
+                                },
+                                "href": {
+                                  "type": "string",
+                                  "description": "href"
+                                },
+                                "id": {
+                                  "type": "string",
+                                  "description": "id"
+                                },
+                                "name": {
+                                  "type": "string",
+                                  "description": "name"
+                                },
+                                "type": {
+                                  "type": "string",
+                                  "description": "type"
+                                },
+                                "uri": {
+                                  "type": "string",
+                                  "description": "uri"
+                                }
+                              }
+                            },
+                            "description": "artists"
+                          },
+                          "available_markets": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "description": "available_markets"
+                          },
+                          "disc_number": {
+                            "type": "integer",
+                            "format": "int32",
+                            "description": "disc_number"
+                          },
+                          "duration_ms": {
+                            "type": "integer",
+                            "format": "int32",
+                            "description": "duration_ms"
+                          },
+                          "explicit": {
+                            "type": "boolean",
+                            "description": "explicit"
+                          },
+                          "external_ids": {
+                            "type": "object",
+                            "properties": {
+                              "isrc": {
+                                "type": "string",
+                                "description": "isrc"
+                              }
+                            },
+                            "description": "external_ids"
+                          },
+                          "external_urls": {
+                            "type": "object",
+                            "properties": {
+                              "spotify": {
+                                "type": "string",
+                                "description": "spotify"
+                              }
+                            },
+                            "description": "external_urls"
+                          },
+                          "href": {
+                            "type": "string",
+                            "description": "href"
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "id"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "name"
+                          },
+                          "popularity": {
+                            "type": "integer",
+                            "format": "int32",
+                            "description": "popularity"
+                          },
+                          "preview_url": {
+                            "type": "string",
+                            "description": "preview_url"
+                          },
+                          "track_number": {
+                            "type": "integer",
+                            "format": "int32",
+                            "description": "track_number"
+                          },
+                          "type": {
+                            "type": "string",
+                            "description": "type"
+                          },
+                          "uri": {
+                            "type": "string",
+                            "description": "uri"
+                          }
+                        },
+                        "description": "track"
+                      }
+                    }
+                  },
+                  "description": "items"
+                },
+                "limit": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "limit"
+                },
+                "next": {
+                  "type": "string",
+                  "description": "next"
+                },
+                "offset": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "offset"
+                },
+                "previous": {
+                  "type": "string",
+                  "description": "previous"
+                },
+                "total": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "total"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get a Playlist's Items",
+        "operationId": "GetPlaylistItems",
+        "description": "Get full details of the items of a playlist owned by a Spotify user.",
+        "parameters": [
+          {
+            "name": "playlist_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "x-ms-summary": "Playlist ID",
+            "description": "The Spotify ID for the playlist."
+          }
+        ]
+      },
+      "delete": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        },
+        "summary": "Remove Items from a Playlist",
+        "operationId": "RemoveItemsFromPlaylist",
+        "description": "Remove one or more items from a user\u2019s playlist.",
+        "parameters": [
+          {
+            "name": "playlist_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The Spotify ID for the playlist.",
+            "x-ms-summary": "Playlist ID"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "tracks": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "uri": {
+                        "type": "string",
+                        "description": "An array of objects containing Spotify URIs of the tracks or episodes to remove. For example: { \"tracks\": [{ \"uri\": \"spotify:track:4iV5W9uYEdYUVa79Axb7Rh\" },{ \"uri\": \"spotify:track:1301WleyT98MSxVHPZCA6M\" }] }. A maximum of 100 objects can be sent at once.",
+                        "title": "uri"
+                      }
+                    }
+                  },
+                  "description": "tracks"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "post": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        },
+        "summary": "Add Items to a Playlist",
+        "description": "Add one or more items to a user\u2019s playlist.",
+        "operationId": "AddItemsToPlaylist",
+        "parameters": [
+          {
+            "name": "playlist_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The Spotify ID for the playlist.",
+            "x-ms-summary": "Playlist ID"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "uris": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "A JSON array of the Spotify URIs to add. For example: {\"uris\": [\"spotify:track:4iV5W9uYEdYUVa79Axb7Rh\",\"spotify:track:1301WleyT98MSxVHPZCA6M\", \"spotify:episode:512ojhOuo1ktJprKbVcKyQ\"]}",
+                    "title": ""
+                  },
+                  "description": "uris"
+                },
+                "position": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "The position to insert the items, a zero-based index.",
+                  "title": "position"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "/playlists/{playlist_id}/images": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "height": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "height"
+                  },
+                  "url": {
+                    "type": "string",
+                    "description": "url"
+                  },
+                  "width": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "width"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get a Playlist Cover Image",
+        "operationId": "GetPlaylistCoverImage",
+        "description": "Get the current image associated with a specific playlist.",
+        "parameters": [
+          {
+            "name": "playlist_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The Spotify ID for the playlist.",
+            "x-ms-summary": "Playlist ID"
+          }
+        ]
+      }
+    },
+    "/tracks/{id}": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "album": {
+                  "type": "object",
+                  "properties": {
+                    "album_type": {
+                      "type": "string",
+                      "description": "album_type"
+                    },
+                    "artists": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "external_urls": {
+                            "type": "object",
+                            "properties": {
+                              "spotify": {
+                                "type": "string",
+                                "description": "spotify"
+                              }
+                            },
+                            "description": "external_urls"
+                          },
+                          "href": {
+                            "type": "string",
+                            "description": "href"
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "id"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "name"
+                          },
+                          "type": {
+                            "type": "string",
+                            "description": "type"
+                          },
+                          "uri": {
+                            "type": "string",
+                            "description": "uri"
+                          }
+                        }
+                      },
+                      "description": "artists"
+                    },
+                    "available_markets": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "available_markets"
+                    },
+                    "external_urls": {
+                      "type": "object",
+                      "properties": {
+                        "spotify": {
+                          "type": "string",
+                          "description": "spotify"
+                        }
+                      },
+                      "description": "external_urls"
+                    },
+                    "href": {
+                      "type": "string",
+                      "description": "href"
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "id"
+                    },
+                    "images": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "height": {
+                            "type": "integer",
+                            "format": "int32",
+                            "description": "height"
+                          },
+                          "url": {
+                            "type": "string",
+                            "description": "url"
+                          },
+                          "width": {
+                            "type": "integer",
+                            "format": "int32",
+                            "description": "width"
+                          }
+                        }
+                      },
+                      "description": "images"
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "name"
+                    },
+                    "release_date": {
+                      "type": "string",
+                      "description": "release_date"
+                    },
+                    "release_date_precision": {
+                      "type": "string",
+                      "description": "release_date_precision"
+                    },
+                    "type": {
+                      "type": "string",
+                      "description": "type"
+                    },
+                    "uri": {
+                      "type": "string",
+                      "description": "uri"
+                    }
+                  },
+                  "description": "album"
+                },
+                "artists": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "external_urls": {
+                        "type": "object",
+                        "properties": {
+                          "spotify": {
+                            "type": "string",
+                            "description": "spotify"
+                          }
+                        },
+                        "description": "external_urls"
+                      },
+                      "href": {
+                        "type": "string",
+                        "description": "href"
+                      },
+                      "id": {
+                        "type": "string",
+                        "description": "id"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "name"
+                      },
+                      "type": {
+                        "type": "string",
+                        "description": "type"
+                      },
+                      "uri": {
+                        "type": "string",
+                        "description": "uri"
+                      }
+                    }
+                  },
+                  "description": "artists"
+                },
+                "available_markets": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "available_markets"
+                },
+                "disc_number": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "disc_number"
+                },
+                "duration_ms": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "duration_ms"
+                },
+                "explicit": {
+                  "type": "boolean",
+                  "description": "explicit"
+                },
+                "external_ids": {
+                  "type": "object",
+                  "properties": {
+                    "isrc": {
+                      "type": "string",
+                      "description": "isrc"
+                    }
+                  },
+                  "description": "external_ids"
+                },
+                "external_urls": {
+                  "type": "object",
+                  "properties": {
+                    "spotify": {
+                      "type": "string",
+                      "description": "spotify"
+                    }
+                  },
+                  "description": "external_urls"
+                },
+                "href": {
+                  "type": "string",
+                  "description": "href"
+                },
+                "id": {
+                  "type": "string",
+                  "description": "id"
+                },
+                "is_local": {
+                  "type": "boolean",
+                  "description": "is_local"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "name"
+                },
+                "popularity": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "popularity"
+                },
+                "preview_url": {
+                  "type": "string",
+                  "description": "preview_url"
+                },
+                "track_number": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "track_number"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "type"
+                },
+                "uri": {
+                  "type": "string",
+                  "description": "uri"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get a Track",
+        "operationId": "GetTrack",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "x-ms-summary": "Track ID",
+            "description": "The Spotify ID for the track."
+          }
+        ],
+        "description": "Get Spotify catalog information for a single track identified by its unique Spotify ID."
+      }
+    },
+    "/me": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "country": {
+                  "type": "string",
+                  "description": "country"
+                },
+                "display_name": {
+                  "type": "string",
+                  "description": "display_name"
+                },
+                "email": {
+                  "type": "string",
+                  "description": "email"
+                },
+                "external_urls": {
+                  "type": "object",
+                  "properties": {
+                    "spotify": {
+                      "type": "string",
+                      "description": "spotify"
+                    }
+                  },
+                  "description": "external_urls"
+                },
+                "followers": {
+                  "type": "object",
+                  "properties": {
+                    "href": {
+                      "type": "string",
+                      "description": "href"
+                    },
+                    "total": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "total"
+                    }
+                  },
+                  "description": "followers"
+                },
+                "href": {
+                  "type": "string",
+                  "description": "href"
+                },
+                "id": {
+                  "type": "string",
+                  "description": "id"
+                },
+                "images": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "height": {
+                        "type": "string",
+                        "description": "height"
+                      },
+                      "url": {
+                        "type": "string",
+                        "description": "url"
+                      },
+                      "width": {
+                        "type": "string",
+                        "description": "width"
+                      }
+                    }
+                  },
+                  "description": "images"
+                },
+                "product": {
+                  "type": "string",
+                  "description": "product"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "type"
+                },
+                "uri": {
+                  "type": "string",
+                  "description": "uri"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get Current User's Profile",
+        "operationId": "GetCurrentUserProfile",
+        "description": "Get detailed profile information about the current user (including the current user\u2019s username).",
+        "parameters": []
+      }
+    },
+    "/users/{user_id}": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "display_name": {
+                  "type": "string",
+                  "description": "display_name"
+                },
+                "external_urls": {
+                  "type": "object",
+                  "properties": {
+                    "spotify": {
+                      "type": "string",
+                      "description": "spotify"
+                    }
+                  },
+                  "description": "external_urls"
+                },
+                "followers": {
+                  "type": "object",
+                  "properties": {
+                    "href": {
+                      "type": "string",
+                      "description": "href"
+                    },
+                    "total": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "total"
+                    }
+                  },
+                  "description": "followers"
+                },
+                "href": {
+                  "type": "string",
+                  "description": "href"
+                },
+                "id": {
+                  "type": "string",
+                  "description": "id"
+                },
+                "images": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "height": {
+                        "type": "string",
+                        "description": "height"
+                      },
+                      "url": {
+                        "type": "string",
+                        "description": "url"
+                      },
+                      "width": {
+                        "type": "string",
+                        "description": "width"
+                      }
+                    }
+                  },
+                  "description": "images"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "type"
+                },
+                "uri": {
+                  "type": "string",
+                  "description": "uri"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get a User's Profile",
+        "operationId": "GetUserProfile",
+        "description": "Get public profile information about a Spotify user.",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "x-ms-summary": "User ID",
+            "description": "The user\u2019s Spotify user ID."
+          }
+        ]
+      }
+    },
+    "/playlists/{playlist_id}/followers": {},
+    "/playlists/{playlist_id}/followers/contains": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        },
+        "summary": "Check if Users Follow a Playlist",
+        "operationId": "CheckIfUsersFollowPlaylist",
+        "description": "Check to see if one or more Spotify users are following a specified playlist.",
+        "parameters": [
+          {
+            "name": "playlist_id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The Spotify ID for the playlist.",
+            "x-ms-summary": "Playlist ID"
+          },
+          {
+            "name": "ids",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "A comma-separated list of Spotify User IDs ; the ids of the users that you want to check to see if they follow the playlist.",
+            "x-ms-summary": "User IDs"
+          }
+        ]
+      }
+    },
+    "/me/following": {},
+    "/artists": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "artists": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "external_urls": {
+                        "type": "object",
+                        "properties": {
+                          "spotify": {
+                            "type": "string",
+                            "description": "spotify"
+                          }
+                        },
+                        "description": "external_urls"
+                      },
+                      "followers": {
+                        "type": "object",
+                        "properties": {
+                          "href": {
+                            "type": "string",
+                            "description": "href"
+                          },
+                          "total": {
+                            "type": "integer",
+                            "format": "int32",
+                            "description": "total"
+                          }
+                        },
+                        "description": "followers"
+                      },
+                      "genres": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "genres"
+                      },
+                      "href": {
+                        "type": "string",
+                        "description": "href"
+                      },
+                      "id": {
+                        "type": "string",
+                        "description": "id"
+                      },
+                      "images": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "height": {
+                              "type": "integer",
+                              "format": "int32",
+                              "description": "height"
+                            },
+                            "url": {
+                              "type": "string",
+                              "description": "url"
+                            },
+                            "width": {
+                              "type": "integer",
+                              "format": "int32",
+                              "description": "width"
+                            }
+                          }
+                        },
+                        "description": "images"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "name"
+                      },
+                      "popularity": {
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "popularity"
+                      },
+                      "type": {
+                        "type": "string",
+                        "description": "type"
+                      },
+                      "uri": {
+                        "type": "string",
+                        "description": "uri"
+                      }
+                    }
+                  },
+                  "description": "artists"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get Multiple Artists",
+        "operationId": "GetMultipleArtists",
+        "description": "Get Spotify catalog information for several artists based on their Spotify IDs.",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "A comma-separated list of the Spotify IDs for the artists. (max 50)",
+            "x-ms-summary": "Artist IDs"
+          }
+        ]
+      }
+    },
+    "/artists/{id}": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "external_urls": {
+                  "type": "object",
+                  "properties": {
+                    "spotify": {
+                      "type": "string",
+                      "description": "spotify"
+                    }
+                  },
+                  "description": "external_urls"
+                },
+                "followers": {
+                  "type": "object",
+                  "properties": {
+                    "href": {
+                      "type": "string",
+                      "description": "href"
+                    },
+                    "total": {
+                      "type": "integer",
+                      "format": "int32",
+                      "description": "total"
+                    }
+                  },
+                  "description": "followers"
+                },
+                "genres": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "genres"
+                },
+                "href": {
+                  "type": "string",
+                  "description": "href"
+                },
+                "id": {
+                  "type": "string",
+                  "description": "id"
+                },
+                "images": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "height": {
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "height"
+                      },
+                      "url": {
+                        "type": "string",
+                        "description": "url"
+                      },
+                      "width": {
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "width"
+                      }
+                    }
+                  },
+                  "description": "images"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "name"
+                },
+                "popularity": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "popularity"
+                },
+                "type": {
+                  "type": "string",
+                  "description": "type"
+                },
+                "uri": {
+                  "type": "string",
+                  "description": "uri"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get an Artist",
+        "operationId": "GetAnArtist",
+        "description": "Get Spotify catalog information for a single artist identified by their unique Spotify ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The Spotify ID of the artist.",
+            "x-ms-summary": "Artist ID"
+          }
+        ]
+      }
+    },
+    "/artists/{id}/albums": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "href": {
+                  "type": "string",
+                  "description": "href"
+                },
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "album_group": {
+                        "type": "string",
+                        "description": "album_group"
+                      },
+                      "album_type": {
+                        "type": "string",
+                        "description": "album_type"
+                      },
+                      "artists": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "external_urls": {
+                              "type": "object",
+                              "properties": {
+                                "spotify": {
+                                  "type": "string",
+                                  "description": "spotify"
+                                }
+                              },
+                              "description": "external_urls"
+                            },
+                            "href": {
+                              "type": "string",
+                              "description": "href"
+                            },
+                            "id": {
+                              "type": "string",
+                              "description": "id"
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "name"
+                            },
+                            "type": {
+                              "type": "string",
+                              "description": "type"
+                            },
+                            "uri": {
+                              "type": "string",
+                              "description": "uri"
+                            }
+                          }
+                        },
+                        "description": "artists"
+                      },
+                      "available_markets": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "available_markets"
+                      },
+                      "external_urls": {
+                        "type": "object",
+                        "properties": {
+                          "spotify": {
+                            "type": "string",
+                            "description": "spotify"
+                          }
+                        },
+                        "description": "external_urls"
+                      },
+                      "href": {
+                        "type": "string",
+                        "description": "href"
+                      },
+                      "id": {
+                        "type": "string",
+                        "description": "id"
+                      },
+                      "images": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "height": {
+                              "type": "integer",
+                              "format": "int32",
+                              "description": "height"
+                            },
+                            "url": {
+                              "type": "string",
+                              "description": "url"
+                            },
+                            "width": {
+                              "type": "integer",
+                              "format": "int32",
+                              "description": "width"
+                            }
+                          }
+                        },
+                        "description": "images"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "name"
+                      },
+                      "release_date": {
+                        "type": "string",
+                        "description": "release_date"
+                      },
+                      "release_date_precision": {
+                        "type": "string",
+                        "description": "release_date_precision"
+                      },
+                      "type": {
+                        "type": "string",
+                        "description": "type"
+                      },
+                      "uri": {
+                        "type": "string",
+                        "description": "uri"
+                      }
+                    }
+                  },
+                  "description": "items"
+                },
+                "limit": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "limit"
+                },
+                "next": {
+                  "type": "string",
+                  "description": "next"
+                },
+                "offset": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "offset"
+                },
+                "previous": {
+                  "type": "string",
+                  "description": "previous"
+                },
+                "total": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "total"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get an Artist's Albums",
+        "operationId": "GetAnArtistAlbums",
+        "description": "Get Spotify catalog information about an artist\u2019s albums.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "x-ms-summary": "Artist ID",
+            "description": "The Spotify ID of the artist."
+          },
+          {
+            "name": "include_groups",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "album",
+              "single",
+              "appears_on",
+              "compilation"
+            ],
+            "description": "Filtering the type of albums returned.",
+            "x-ms-summary": "Type"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "description": "The number of album objects to return",
+            "default": 20,
+            "x-ms-summary": "Limit"
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "description": "The index of the first album to return",
+            "default": 0,
+            "x-ms-summary": "Offset"
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {},
+  "parameters": {},
+  "responses": {},
+  "securityDefinitions": {
+    "oauth2_auth": {
+      "type": "oauth2",
+      "flow": "accessCode",
+      "authorizationUrl": "https://accounts.spotify.com/authorize",
+      "tokenUrl": "https://accounts.spotify.com/api/token",
+      "scopes": {
+        "user-read-currently-playing user-modify-playback-state user-read-playback-state playlist-modify-private playlist-modify-public playlist-read-collaborative playlist-read-private user-follow-modify user-follow-read user-library-modify user-library-read": "user-read-currently-playing user-modify-playback-state user-read-playback-state playlist-modify-private playlist-modify-public playlist-read-collaborative playlist-read-private user-follow-modify user-follow-read user-library-modify user-library-read"
+      }
+    }
+  },
+  "security": [
+    {
+      "oauth2_auth": [
+        "user-read-currently-playing user-modify-playback-state user-read-playback-state playlist-modify-private playlist-modify-public playlist-read-collaborative playlist-read-private user-follow-modify user-follow-read user-library-modify user-library-read"
+      ]
+    }
+  ],
+  "tags": []
+}

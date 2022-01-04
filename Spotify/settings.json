@@ -1,0 +1,9 @@
+{
+  "connectorId": "shared_spotify-5f1d508f0ca30762b9-5fa3d1065fcfa59ce0",
+  "environment": "1cce16eb-b8fc-4f6d-855a-326cd8d71490",
+  "apiProperties": "apiProperties.json",
+  "apiDefinition": "apiDefinition.swagger.json",
+  "icon": "icon.png",
+  "powerAppsUrl": "https://api.powerapps.com",
+  "powerAppsApiVersion": "2016-11-01"
+}

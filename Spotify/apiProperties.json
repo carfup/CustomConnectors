@@ -1,0 +1,27 @@
+{
+  "properties": {
+    "connectionParameters": {
+      "token": {
+        "type": "oauthSetting",
+        "oAuthSettings": {
+          "identityProvider": "spotify",
+          "clientId": "[YOUR_VALUE]",
+          "scopes": [
+            "user-read-currently-playing user-modify-playback-state user-read-playback-state playlist-modify-private playlist-modify-public playlist-read-collaborative playlist-read-private user-follow-modify user-follow-read user-library-modify user-library-read"
+          ],
+          "redirectMode": "Global",
+          "redirectUrl": "https://global.consent.azure-apim.net/redirect",
+          "properties": {
+            "IsFirstParty": "False",
+            "IsOnbehalfofLoginSupported": false
+          },
+          "customParameters": {}
+        }
+      }
+    },
+    "iconBrandColor": "#da3b01",
+    "capabilities": [],
+    "publisher": "Clement Olivier",
+	"stackOwner": "Spotify"
+  }
+}

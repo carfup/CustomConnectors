@@ -1,0 +1,2041 @@
+swagger: '2.0'
+info:
+  version: 3.5.2
+  title: Neutrino API
+  description: The general-purpose API
+  contact: {email: tech@neutrinoapi.com, name: Neutrino API, url: 'https://www.neutrinoapi.com/'}
+host: neutrinoapi.net
+basePath: /
+schemes: [https]
+consumes: [application/json]
+produces: [application/json]
+paths:
+  /image-resize:
+    post:
+      description: Resize an image and output as either JPEG or PNG
+      summary: Image Resize
+      tags: [Imaging]
+      operationId: ImageResize
+      deprecated: false
+      produces: [application/json]
+      consumes: [application/x-www-form-urlencoded]
+      parameters:
+      - {name: user-id, in: header, required: true, type: string, description: User
+          Id}
+      - {name: image-url, in: formData, required: true, type: string, description: The
+          URL or Base64 encoded Data URL for the source image (you can also upload
+          an image file directly in which case this field is ignored)}
+      - {name: width, in: formData, required: true, type: integer, format: int32,
+        description: The width to resize to (in px) while preserving aspect ratio}
+      - {name: height, in: formData, required: false, type: integer, format: int32,
+        description: The height to resize to (in px) while preserving aspect ratio.
+          If you don't set this field then the height will be automatic based on the
+          requested width and images aspect ratio}
+      - {name: format, in: formData, required: false, default: png, type: string,
+        description: 'The output image format, can be either png or jpg', enum: [png,jpg]}
+      responses:
+        '200':
+          description: ''
+          schema: {type: string, default: '', format: binary}
+          headers: {}
+        '400':
+          description: Your API request has been rejected. Check error code for details
+          schema: {$ref: '#/definitions/APIError'}
+        '403':
+          description: You have failed to authenticate
+          schema: {$ref: '#/definitions/APIError'}
+        '500':
+          description: We messed up, sorry! Your request has caused a fatal exception
+          schema: {$ref: '#/definitions/APIError'}
+        default:
+          description: We messed up, sorry! Your request has caused an error
+          schema: {$ref: '#/definitions/APIError'}
+  /image-watermark:
+    post:
+      description: Watermark one image with another image
+      summary: Image Watermark
+      tags: [Imaging]
+      operationId: ImageWatermark
+      deprecated: false
+      produces: [application/json]
+      consumes: [application/x-www-form-urlencoded]
+      parameters:
+      - {name: user-id, in: header, required: true, type: string, description: User
+          Id}
+      - {name: image-url, in: formData, required: true, type: string, description: The
+          URL or Base64 encoded Data URL for the source image (you can also upload
+          an image file directly in which case this field is ignored)}
+      - {name: watermark-url, in: formData, required: true, type: string, description: The
+          URL or Base64 encoded Data URL for the watermark image (you can also upload
+          an image file directly in which case this field is ignored)}
+      - {name: opacity, in: formData, required: false, default: 50, type: integer,
+        format: int32, description: The opacity of the watermark (0 to 100)}
+      - {name: format, in: formData, required: false, default: png, type: string,
+        description: 'The output image format, can be either png or jpg'}
+      - {name: position, in: formData, required: false, default: center, type: string,
+        description: 'The position of the watermark image, possible values are: center,
+          top-left, top-center, top-right, bottom-left, bottom-center, bottom-right', enum: [center,
+          top-left, top-center, top-right, bottom-left, bottom-center, bottom-right]}
+      - {name: width, in: formData, required: false, type: integer, format: int32,
+        description: If set resize the resulting image to this width (in px) while
+          preserving aspect ratio}
+      - {name: height, in: formData, required: false, type: integer, format: int32,
+        description: If set resize the resulting image to this height (in px) while
+          preserving aspect ratio}
+      responses:
+        '200':
+          description: ''
+          schema: {type: string, default: '', format: binary}
+          headers: {}
+        '400':
+          description: Your API request has been rejected. Check error code for details
+          schema: {$ref: '#/definitions/APIError'}
+        '403':
+          description: You have failed to authenticate
+          schema: {$ref: '#/definitions/APIError'}
+        '500':
+          description: We messed up, sorry! Your request has caused a fatal exception
+          schema: {$ref: '#/definitions/APIError'}
+        default:
+          description: We messed up, sorry! Your request has caused an error
+          schema: {$ref: '#/definitions/APIError'}
+  /html-render:
+    post:
+      description: Render HTML content to PDF, JPG or PNG
+      summary: HTML Render
+      tags: [Imaging]
+      operationId: HTMLRender
+      deprecated: false
+      produces: [application/json]
+      consumes: [application/x-www-form-urlencoded]
+      parameters:
+      - {name: user-id, in: header, required: true, type: string, description: User
+          Id}
+      - {name: content, in: formData, required: true, type: string, description: 'The
+          HTML content. This can be either a URL to load from, a file upload or an
+          HTML content string'}
+      - {name: format, in: formData, required: false, default: PDF, type: string,
+        description: 'Which format to output, available options are: PDF, PNG, JPG', enum: [PDF, PNG, JPG]}
+      - {name: page-size, in: formData, required: false, default: A4, type: string,
+        description: 'Set the document page size, can be one of: A0 - A9, B0 - B10,
+          Comm10E, DLE or Letter', enum: [A0,A1,A2,A3,A4,A5,A6,A7,A8,A9,B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,Comm10E,DLE,Letter]}
+      - {name: title, in: formData, required: false, type: string, description: The
+          document title}
+      - {name: margin, in: formData, required: false, default: 0, type: number, format: double,
+        description: The document margin (in mm)}
+      - {name: margin-left, in: formData, required: false, default: 0, type: number,
+        format: double, description: The document left margin (in mm)}
+      - {name: margin-right, in: formData, required: false, default: 0, type: number,
+        format: double, description: The document right margin (in mm)}
+      - {name: margin-top, in: formData, required: false, default: 0, type: number,
+        format: double, description: The document top margin (in mm)}
+      - {name: margin-bottom, in: formData, required: false, default: 0, type: number,
+        format: double, description: The document bottom margin (in mm)}
+      - {name: landscape, in: formData, required: false, default: false, type: boolean,
+        description: Set the document to landscape orientation}
+      - {name: zoom, in: formData, required: false, default: 1, type: number, format: double,
+        description: 'Set the zoom factor when rendering the page (2.0 for double
+          size, 0.5 for half size)'}
+      - {name: grayscale, in: formData, required: false, default: false, type: boolean,
+        description: Render the final document in grayscale}
+      - {name: css, in: formData, required: false, type: string, description: 'Inject
+          custom CSS into the HTML. e.g. ''body { background-color: red;}'''}
+      - {name: image-width, in: formData, required: false, default: 1024, type: integer,
+        format: int32, description: If rendering to an image format (PNG or JPG) use
+          this image width (in pixels)}
+      - {name: image-height, in: formData, required: false, type: integer, format: int32,
+        description: If rendering to an image format (PNG or JPG) use this image height
+          (in pixels). The default is automatic which dynamically sets the image height
+          based on the content}
+      - {name: delay, in: formData, required: false, default: 0, type: integer, format: int32,
+        description: Number of seconds to wait before rendering the page (can be useful
+          for pages with animations etc)}
+      - {name: page-width, in: formData, required: false, type: number, format: double,
+        description: Set the PDF page width explicitly (in mm)}
+      - {name: page-height, in: formData, required: false, type: number, format: double,
+        description: Set the PDF page height explicitly (in mm)}
+      - {name: timeout, in: formData, required: false, default: 300, type: integer,
+        format: int32, description: Timeout in seconds. Give up if still trying to
+          load the HTML content after this number of seconds}
+      - {name: ignore-certificate-errors, in: formData, required: false, default: false,
+        type: boolean, description: Ignore any TLS/SSL certificate errors}
+      - {name: header, in: formData, required: false, type: string, description: 'The
+          header HTML to insert into each page. The following dynamic tags are supported:
+          {date}, {title}, {url}, {pageNumber}, {totalPages}'}
+      - {name: footer, in: formData, required: false, type: string, description: 'The
+          footer HTML to insert into each page. The following dynamic tags are supported:
+          {date}, {title}, {url}, {pageNumber}, {totalPages}'}
+      responses:
+        '200':
+          description: ''
+          schema: {type: string, default: '', format: binary}
+          headers: {}
+        '400':
+          description: Your API request has been rejected. Check error code for details
+          schema: {$ref: '#/definitions/APIError'}
+        '403':
+          description: You have failed to authenticate
+          schema: {$ref: '#/definitions/APIError'}
+        '500':
+          description: We messed up, sorry! Your request has caused a fatal exception
+          schema: {$ref: '#/definitions/APIError'}
+        default:
+          description: We messed up, sorry! Your request has caused an error
+          schema: {$ref: '#/definitions/APIError'}
+  /qr-code:
+    post:
+      description: Generate a QR code as a PNG image
+      summary: QR Code
+      tags: [Imaging]
+      operationId: QRCode
+      deprecated: false
+      produces: [application/json]
+      consumes: [application/x-www-form-urlencoded]
+      parameters:
+      - {name: user-id, in: header, required: true, type: string, description: User
+          Id}
+      - {name: content, in: formData, required: true, type: string, description: The
+          content to encode into the QR code (e.g. a URL or a phone number)}
+      - {name: width, in: formData, required: false, default: 256, type: integer,
+        format: int32, description: The width of the QR code (in px)}
+      - {name: height, in: formData, required: false, default: 256, type: integer,
+        format: int32, description: The height of the QR code (in px)}
+      - {name: fg-color, in: formData, required: false, default: '#000000', type: string,
+        description: The QR code foreground color}
+      - {name: bg-color, in: formData, required: false, default: '#ffffff', type: string,
+        description: The QR code background color}
+      responses:
+        '200':
+          description: ''
+          schema: {type: string, default: '', format: binary}
+          headers: {}
+        '400':
+          description: Your API request has been rejected. Check error code for details
+          schema: {$ref: '#/definitions/APIError'}
+        '403':
+          description: You have failed to authenticate
+          schema: {$ref: '#/definitions/APIError'}
+        '500':
+          description: We messed up, sorry! Your request has caused a fatal exception
+          schema: {$ref: '#/definitions/APIError'}
+        default:
+          description: We messed up, sorry! Your request has caused an error
+          schema: {$ref: '#/definitions/APIError'}
+  /phone-playback:
+    post:
+      description: Make an automated call to any valid phone number and playback an
+        audio message
+      summary: Phone Playback
+      tags: [Telephony]
+      operationId: PhonePlayback
+      deprecated: false
+      produces: [application/json]
+      consumes: [application/x-www-form-urlencoded]
+      parameters:
+      - {name: user-id, in: header, required: true, type: string, description: User
+          Id}
+      - name: output-case
+        in: formData
+        required: false
+        enum: [camel]
+        type: string
+        description: The output case style
+      - {name: number, in: formData, required: true, type: string, description: The
+          phone number to call. Must be in valid international format}
+      - {name: audio-url, in: formData, required: true, type: string, description: 'A
+          URL to a valid audio file. Accepted audio formats are: <ul> <li>MP3</li>
+          <li>WAV</li> <li>OGG</li> </ul>You can use the following MP3 URL for testing:
+          <br>https://www.neutrinoapi.com/test-files/test1.mp3'}
+      - {name: limit, in: formData, required: false, default: 3, type: integer, format: int32,
+        description: 'Limit the total number of calls allowed to the supplied phone
+          number, if the limit is reached error code 14 will be returned (0 means
+          no limit)'}
+      - {name: limit-ttl, in: formData, required: false, default: 1, type: integer,
+        format: int32, description: Set the TTL in number of days that the 'limit'
+          option will remember a phone number (the default is 1 day and the maximum
+          is 365 days)}
+      responses:
+        '200':
+          description: ''
+          schema: {$ref: '#/definitions/PhonePlaybackResponse'}
+          headers: {}
+        '400':
+          description: Your API request has been rejected. Check error code for details
+          schema: {$ref: '#/definitions/APIError'}
+        '403':
+          description: You have failed to authenticate
+          schema: {$ref: '#/definitions/APIError'}
+        '500':
+          description: We messed up, sorry! Your request has caused a fatal exception
+          schema: {$ref: '#/definitions/APIError'}
+        default:
+          description: We messed up, sorry! Your request has caused an error
+          schema: {$ref: '#/definitions/APIError'}
+  /sms-verify:
+    post:
+      description: Send a unique security code to any mobile device via SMS 
+      summary: SMS Verify (premium)
+      tags: [Telephony]
+      operationId: SMSVerify
+      deprecated: false
+      produces: [application/json]
+      consumes: [application/x-www-form-urlencoded]
+      parameters:
+      - {name: user-id, in: header, required: true, type: string, description: User
+          Id}
+      - name: output-case
+        in: formData
+        required: false
+        enum: [camel]
+        type: string
+        description: The output case style
+      - {name: number, in: formData, required: true, type: string, description: The
+          phone number to send a verification code to}
+      - {name: code-length, in: formData, required: false, default: 5, type: integer,
+        format: int32, description: The number of digits to use in the security code
+          (must be between 4 and 12)}
+      - {name: security-code, in: formData, required: false, type: integer, format: int32,
+        description: Pass in your own security code. This is useful if you have implemented
+          TOTP or similar 2FA methods. If not set then we will generate a secure random
+          code}
+      - {name: country-code, in: formData, required: false, type: string, description: 'ISO
+          2-letter country code, assume numbers are based in this country. <br>If
+          not set numbers are assumed to be in international format (with or without
+          the leading + sign)'}
+      - {name: language-code, in: formData, required: false, default: en, type: string,
+        description: 'The language to send the verification code in, available languages
+          are: de - German, en - English, es - Spanish, fr - French, it - Italian, pt - Portuguese, ru
+          - Russian', enum: [de, en, es, fr, it, pt, ru]}
+      - {name: limit, in: formData, required: false, default: 0, type: integer, format: int32,
+        description: 'Limit the total number of SMS allowed to the supplied phone
+          number, if the limit is reached error code 14 will be returned (the default
+          is no limit)'}
+      - {name: limit-ttl, in: formData, required: false, default: 1, type: integer,
+        format: int32, description: Set the TTL in number of days that the 'limit'
+          option will remember a phone number (the default is 1 day and the maximum
+          is 365 days)}
+      responses:
+        '200':
+          description: ''
+          schema: {$ref: '#/definitions/SMSVerifyResponse'}
+          headers: {}
+        '400':
+          description: Your API request has been rejected. Check error code for details
+          schema: {$ref: '#/definitions/APIError'}
+        '403':
+          description: You have failed to authenticate
+          schema: {$ref: '#/definitions/APIError'}
+        '500':
+          description: We messed up, sorry! Your request has caused a fatal exception
+          schema: {$ref: '#/definitions/APIError'}
+        default:
+          description: We messed up, sorry! Your request has caused an error
+          schema: {$ref: '#/definitions/APIError'}
+  /hlr-lookup:
+    post:
+      description: Connect to the global mobile cellular network and retrieve the
+        status of a mobile device 
+      summary: HLR Lookup (premium)
+      tags: [Telephony]
+      operationId: HLRLookup
+      deprecated: false
+      produces: [application/json]
+      consumes: [application/x-www-form-urlencoded]
+      parameters:
+      - {name: user-id, in: header, required: true, type: string, description: User
+          Id}
+      - name: output-case
+        in: formData
+        required: false
+        enum: [camel]
+        type: string
+        description: The output case style
+      - {name: number, in: formData, required: true, type: string, description: A
+          phone number}
+      - {name: country-code, in: formData, required: false, type: string, description: 'ISO
+          2-letter country code, assume numbers are based in this country. <br>If
+          not set numbers are assumed to be in international format (with or without
+          the leading + sign)'}
+      responses:
+        '200':
+          description: ''
+          schema: {$ref: '#/definitions/HLRLookupResponse'}
+          headers: {}
+        '400':
+          description: Your API request has been rejected. Check error code for details
+          schema: {$ref: '#/definitions/APIError'}
+        '403':
+          description: You have failed to authenticate
+          schema: {$ref: '#/definitions/APIError'}
+        '500':
+          description: We messed up, sorry! Your request has caused a fatal exception
+          schema: {$ref: '#/definitions/APIError'}
+        default:
+          description: We messed up, sorry! Your request has caused an error
+          schema: {$ref: '#/definitions/APIError'}
+  /sms-message:
+    post:
+      description: Send a free-form message to any mobile device via SMS
+      summary: SMS Message (premium)
+      tags: [Telephony]
+      operationId: SMSMessage
+      deprecated: false
+      produces: [application/json]
+      consumes: [application/x-www-form-urlencoded]
+      parameters:
+      - {name: user-id, in: header, required: true, type: string, description: User
+          Id}
+      - name: output-case
+        in: formData
+        required: false
+        enum: [camel]
+        type: string
+        description: The output case style
+      - {name: number, in: formData, required: true, type: string, description: The
+          phone number to send a message to}
+      - {name: message, in: formData, required: true, type: string, description: The
+          SMS message to send. Messages are truncated to a maximum of 150 characters
+          for ASCII content OR 70 characters for UTF content}
+      - {name: country-code, in: formData, required: false, type: string, description: 'ISO
+          2-letter country code, assume numbers are based in this country. <br>If
+          not set numbers are assumed to be in international format (with or without
+          the leading + sign)'}
+      - {name: limit, in: formData, required: false, default: 0, type: integer, format: int32,
+        description: 'Limit the total number of SMS allowed to the supplied phone
+          number, if the limit is reached error code 14 will be returned (the default
+          is no limit)'}
+      - {name: limit-ttl, in: formData, required: false, default: 1, type: integer,
+        format: int32, description: Set the TTL in number of days that the 'limit'
+          option will remember a phone number (the default is 1 day and the maximum
+          is 365 days)}
+      responses:
+        '200':
+          description: ''
+          schema: {$ref: '#/definitions/SMSMessageResponse'}
+          headers: {}
+        '400':
+          description: Your API request has been rejected. Check error code for details
+          schema: {$ref: '#/definitions/APIError'}
+        '403':
+          description: You have failed to authenticate
+          schema: {$ref: '#/definitions/APIError'}
+        '500':
+          description: We messed up, sorry! Your request has caused a fatal exception
+          schema: {$ref: '#/definitions/APIError'}
+        default:
+          description: We messed up, sorry! Your request has caused an error
+          schema: {$ref: '#/definitions/APIError'}
+  /phone-verify:
+    post:
+      description: Make an automated call to any valid phone number and playback a
+        unique security code
+      summary: Phone Verify (premium)
+      tags: [Telephony]
+      operationId: PhoneVerify
+      deprecated: false
+      produces: [application/json]
+      consumes: [application/x-www-form-urlencoded]
+      parameters:
+      - {name: user-id, in: header, required: true, type: string, description: User
+          Id}
+      - name: output-case
+        in: formData
+        required: false
+        enum: [camel]
+        type: string
+        description: The output case style
+      - {name: number, in: formData, required: true, type: string, description: The
+          phone number to send the verification code to}
+      - {name: code-length, in: formData, required: false, default: 6, type: integer,
+        format: int32, description: The number of digits to use in the security code
+          (between 4 and 12)}
+      - {name: security-code, in: formData, required: false, type: integer, format: int32,
+        description: Pass in your own security code. This is useful if you have implemented
+          TOTP or similar 2FA methods. If not set then we will generate a secure random
+          code}
+      - {name: playback-delay, in: formData, required: false, default: 800, type: integer,
+        format: int32, description: The delay in milliseconds between the playback
+          of each security code}
+      - {name: country-code, in: formData, required: false, type: string, description: 'ISO
+          2-letter country code, assume numbers are based in this country. <br>If
+          not set numbers are assumed to be in international format (with or without
+          the leading + sign)'}
+      - {name: language-code, in: formData, required: false, default: en, type: string,
+        description: 'The language to playback the verification code in, available
+          languages are: de - German, en - English, es - Spanish, fr - French, it - Italian, pt - Portuguese, ru
+          - Russian', enum: [de, en, es, fr, it, pt, ru]}
+      - {name: limit, in: formData, required: false, default: 3, type: integer, format: int32,
+        description: 'Limit the total number of calls allowed to the supplied phone
+          number, if the limit is reached error code 14 will be returned (0 means
+          no limit)'}
+      - {name: limit-ttl, in: formData, required: false, default: 1, type: integer,
+        format: int32, description: Set the TTL in number of days that the 'limit'
+          option will remember a phone number (the default is 1 day and the maximum
+          is 365 days)}
+      responses:
+        '200':
+          description: ''
+          schema: {$ref: '#/definitions/PhoneVerifyResponse'}
+          headers: {}
+        '400':
+          description: Your API request has been rejected. Check error code for details
+          schema: {$ref: '#/definitions/APIError'}
+        '403':
+          description: You have failed to authenticate
+          schema: {$ref: '#/definitions/APIError'}
+        '500':
+          description: We messed up, sorry! Your request has caused a fatal exception
+          schema: {$ref: '#/definitions/APIError'}
+        default:
+          description: We messed up, sorry! Your request has caused an error
+          schema: {$ref: '#/definitions/APIError'}
+  /verify-security-code:
+    post:
+      description: Check if a security code sent via SMS Verify or Phone Verify is
+        valid
+      summary: Verify Security Code
+      tags: [Telephony]
+      operationId: VerifySecurityCode
+      deprecated: false
+      produces: [application/json]
+      consumes: [application/x-www-form-urlencoded]
+      parameters:
+      - {name: user-id, in: header, required: true, type: string, description: User
+          Id}
+      - name: output-case
+        in: formData
+        required: false
+        enum: [camel]
+        type: string
+        description: The output case style
+      - {name: security-code, in: formData, required: true, type: string, description: The
+          security code to verify}
+      - {name: limit-by, in: formData, required: false, type: string, description: 'If
+          set then enable additional brute-force protection by limiting the number
+          of attempts by the supplied value. This can be set to any unique identifier
+          you would like to limit by, for example a hash of the users email, phone
+          number or IP address. Requests to this API will be ignored after approximately
+          10 failed verification attempts'}
+      responses:
+        '200':
+          description: ''
+          schema: {$ref: '#/definitions/VerifySecurityCodeResponse'}
+          headers: {}
+        '400':
+          description: Your API request has been rejected. Check error code for details
+          schema: {$ref: '#/definitions/APIError'}
+        '403':
+          description: You have failed to authenticate
+          schema: {$ref: '#/definitions/APIError'}
+        '500':
+          description: We messed up, sorry! Your request has caused a fatal exception
+          schema: {$ref: '#/definitions/APIError'}
+        default:
+          description: We messed up, sorry! Your request has caused an error
+          schema: {$ref: '#/definitions/APIError'}
+  /phone-validate:
+    post:
+      description: Parse, validate and get location information about a phone number
+      summary: Phone Validate
+      tags: [Data Tools]
+      operationId: PhoneValidate
+      deprecated: false
+      produces: [application/json]
+      consumes: [application/x-www-form-urlencoded]
+      parameters:
+      - {name: user-id, in: header, required: true, type: string, description: User
+          Id}
+      - name: output-case
+        in: formData
+        required: false
+        enum: [camel]
+        type: string
+        description: The output case style
+      - {name: number, in: formData, required: true, type: string, description: A
+          phone number. This can be in international format (E.164) or local format.
+          If passing local format you must also set either the 'country-code' OR 'ip'
+          options as well}
+      - {name: country-code, in: formData, required: false, type: string, description: 'ISO
+          2-letter country code, assume numbers are based in this country. If not
+          set numbers are assumed to be in international format (with or without the
+          leading + sign)'}
+      - {name: ip, in: formData, required: false, type: string, description: Pass
+          in a users IP address and we will assume numbers are based in the country
+          of the IP address}
+      responses:
+        '200':
+          description: ''
+          schema: {$ref: '#/definitions/PhoneValidateResponse'}
+          headers: {}
+        '400':
+          description: Your API request has been rejected. Check error code for details
+          schema: {$ref: '#/definitions/APIError'}
+        '403':
+          description: You have failed to authenticate
+          schema: {$ref: '#/definitions/APIError'}
+        '500':
+          description: We messed up, sorry! Your request has caused a fatal exception
+          schema: {$ref: '#/definitions/APIError'}
+        default:
+          description: We messed up, sorry! Your request has caused an error
+          schema: {$ref: '#/definitions/APIError'}
+  /email-validate:
+    post:
+      description: Parse, validate and clean an email address
+      summary: Email Validate
+      tags: [Data Tools]
+      operationId: EmailValidate
+      deprecated: false
+      produces: [application/json]
+      consumes: [application/x-www-form-urlencoded]
+      parameters:
+      - {name: user-id, in: header, required: true, type: string, description: User
+          Id}
+      - name: output-case
+        in: formData
+        required: false
+        enum: [camel]
+        type: string
+        description: The output case style
+      - {name: email, in: formData, required: true, type: string, description: An
+          email address}
+      - {name: fix-typos, in: formData, required: false, default: false, type: boolean,
+        description: Automatically attempt to fix typos in the address}
+      responses:
+        '200':
+          description: ''
+          schema: {$ref: '#/definitions/EmailValidateResponse'}
+          headers: {}
+        '400':
+          description: Your API request has been rejected. Check error code for details
+          schema: {$ref: '#/definitions/APIError'}
+        '403':
+          description: You have failed to authenticate
+          schema: {$ref: '#/definitions/APIError'}
+        '500':
+          description: We messed up, sorry! Your request has caused a fatal exception
+          schema: {$ref: '#/definitions/APIError'}
+        default:
+          description: We messed up, sorry! Your request has caused an error
+          schema: {$ref: '#/definitions/APIError'}
+  /ua-lookup:
+    post:
+      description: Parse, validate and get detailed user-agent information from a
+        user agent string or from client hint fields
+      summary: UA Lookup
+      tags: [Data Tools]
+      operationId: UALookup
+      deprecated: false
+      produces: [application/json]
+      consumes: [application/x-www-form-urlencoded]
+      parameters:
+      - {name: user-id, in: header, required: true, type: string, description: User
+          Id}
+      - name: output-case
+        in: formData
+        required: false
+        enum: [camel]
+        type: string
+        description: The output case style
+      - {name: ua, in: formData, required: true, type: string, description: A user
+          agent string}
+      - {name: ua-version, in: formData, required: false, type: string, description: For
+          client hints this corresponds to the 'UA-Full-Version' field}
+      - {name: ua-platform, in: formData, required: false, type: string, description: For
+          client hints this corresponds to the 'UA-Platform' field}
+      - {name: ua-platform-version, in: formData, required: false, type: string, description: For
+          client hints this corresponds to the 'UA-Platform-Version' field}
+      - {name: ua-mobile, in: formData, required: false, type: string, description: For
+          client hints this corresponds to the 'UA-Mobile' field}
+      - {name: device-model, in: formData, required: false, type: string, description: For
+          client hints this corresponds to the 'UA-Model' field}
+      - {name: device-brand, in: formData, required: false, type: string, description: Limit
+          device lookups to this brand (helps when device models are ambiguous)}
+      responses:
+        '200':
+          description: ''
+          schema: {$ref: '#/definitions/UALookupResponse'}
+          headers: {}
+        '400':
+          description: Your API request has been rejected. Check error code for details
+          schema: {$ref: '#/definitions/APIError'}
+        '403':
+          description: You have failed to authenticate
+          schema: {$ref: '#/definitions/APIError'}
+        '500':
+          description: We messed up, sorry! Your request has caused a fatal exception
+          schema: {$ref: '#/definitions/APIError'}
+        default:
+          description: We messed up, sorry! Your request has caused an error
+          schema: {$ref: '#/definitions/APIError'}
+  /bad-word-filter:
+    post:
+      description: Detect bad words, swear words and profanity in a given text
+      summary: Bad Word Filter
+      tags: [Data Tools]
+      operationId: BadWordFilter
+      deprecated: false
+      produces: [application/json]
+      consumes: [application/x-www-form-urlencoded]
+      parameters:
+      - {name: user-id, in: header, required: true, type: string, description: User
+          Id}
+      - name: output-case
+        in: formData
+        required: false
+        enum: [camel]
+        type: string
+        description: The output case style
+      - {name: content, in: formData, required: true, type: string, description: 'The
+          content to scan. This can be either a URL to load from, a file upload or
+          an HTML content string'}
+      - {name: censor-character, in: formData, required: false, type: string, description: The
+          character to use to censor out the bad words found}
+      - {name: catalog, in: formData, required: false, default: strict, type: string,
+        description: 'Which catalog of bad words to use, we currently maintain two
+          bad word catalogs: strict - the largest database of bad words
+          which includes profanity, obscenity, sexual, rude, cuss, dirty, swear and
+          objectionable words and phrases. This catalog is suitable for environments
+          of all ages including educational or children''s content OR obscene
+          - like the strict catalog but does not include any mild profanities, idiomatic
+          phrases or words which are considered formal terminology. This catalog is
+          suitable for adult environments where certain types of bad words are considered
+          OK', enum: [strict, obscene]}
+      responses:
+        '200':
+          description: ''
+          schema: {$ref: '#/definitions/BadWordFilterResponse'}
+          headers: {}
+        '400':
+          description: Your API request has been rejected. Check error code for details
+          schema: {$ref: '#/definitions/APIError'}
+        '403':
+          description: You have failed to authenticate
+          schema: {$ref: '#/definitions/APIError'}
+        '500':
+          description: We messed up, sorry! Your request has caused a fatal exception
+          schema: {$ref: '#/definitions/APIError'}
+        default:
+          description: We messed up, sorry! Your request has caused an error
+          schema: {$ref: '#/definitions/APIError'}
+  /ip-blocklist-download:
+    post:
+      description: This API is a direct feed to our IP blocklist data
+      summary: IP Blocklist Download
+      tags: [Security and Networking]
+      operationId: IPBlocklistDownload
+      deprecated: false
+      produces: [application/json]
+      consumes: [application/x-www-form-urlencoded]
+      parameters:
+      - {name: user-id, in: header, required: true, type: string, description: User
+          Id}
+      - {name: format, in: formData, required: false, default: csv, type: string,
+        description: The data format. Can be either CSV or TXT, enum: [txt, csv]}
+      - {name: include-vpn, in: formData, required: false, default: false, type: boolean,
+        description: 'Include public VPN provider IP addresses, this option is only
+          available for Tier 3 or higher accounts. WARNING: This option
+          will add at least an additional 8 million IP addresses to the download'}
+      responses:
+        '200':
+          description: ''
+          schema: {type: string, default: '', format: binary}
+          headers: {}
+        '400':
+          description: Your API request has been rejected. Check error code for details
+          schema: {$ref: '#/definitions/APIError'}
+        '403':
+          description: You have failed to authenticate
+          schema: {$ref: '#/definitions/APIError'}
+        '500':
+          description: We messed up, sorry! Your request has caused a fatal exception
+          schema: {$ref: '#/definitions/APIError'}
+        default:
+          description: We messed up, sorry! Your request has caused an error
+          schema: {$ref: '#/definitions/APIError'}
+  /email-verify:
+    post:
+      description: SMTP based email address verification
+      summary: Email Verify
+      tags: [Security and Networking]
+      operationId: EmailVerify
+      deprecated: false
+      produces: [application/json]
+      consumes: [application/x-www-form-urlencoded]
+      parameters:
+      - {name: user-id, in: header, required: true, type: string, description: User
+          Id}
+      - name: output-case
+        in: formData
+        required: false
+        enum: [camel]
+        type: string
+        description: The output case style
+      - {name: email, in: formData, required: true, type: string, description: An
+          email address}
+      - {name: fix-typos, in: formData, required: false, default: false, type: boolean,
+        description: Automatically attempt to fix typos in the address}
+      responses:
+        '200':
+          description: ''
+          schema: {$ref: '#/definitions/EmailVerifyResponse'}
+          headers: {}
+        '400':
+          description: Your API request has been rejected. Check error code for details
+          schema: {$ref: '#/definitions/APIError'}
+        '403':
+          description: You have failed to authenticate
+          schema: {$ref: '#/definitions/APIError'}
+        '500':
+          description: We messed up, sorry! Your request has caused a fatal exception
+          schema: {$ref: '#/definitions/APIError'}
+        default:
+          description: We messed up, sorry! Your request has caused an error
+          schema: {$ref: '#/definitions/APIError'}
+  /ip-blocklist:
+    post:
+      description: The IP Blocklist API will detect potentially malicious or dangerous
+        IP addresses
+      summary: IP Blocklist
+      tags: [Security and Networking]
+      operationId: IPBlocklist
+      deprecated: false
+      produces: [application/json]
+      consumes: [application/x-www-form-urlencoded]
+      parameters:
+      - {name: user-id, in: header, required: true, type: string, description: User
+          Id}
+      - name: output-case
+        in: formData
+        required: false
+        enum: [camel]
+        type: string
+        description: The output case style
+      - {name: ip, in: formData, required: true, type: string, description: An IPv4
+          or IPv6 address}
+      - {name: vpn-lookup, in: formData, required: false, default: false, type: boolean,
+        description: 'Include public VPN provider IP addresses. NOTE: For
+          more advanced VPN detection including the ability to identify private and
+          stealth VPNs use the https://www.neutrinoapi.com/api/ip-probe/'}
+      responses:
+        '200':
+          description: ''
+          schema: {$ref: '#/definitions/IPBlocklistResponse'}
+          headers: {}
+        '400':
+          description: Your API request has been rejected. Check error code for details
+          schema: {$ref: '#/definitions/APIError'}
+        '403':
+          description: You have failed to authenticate
+          schema: {$ref: '#/definitions/APIError'}
+        '500':
+          description: We messed up, sorry! Your request has caused a fatal exception
+          schema: {$ref: '#/definitions/APIError'}
+        default:
+          description: We messed up, sorry! Your request has caused an error
+          schema: {$ref: '#/definitions/APIError'}
+  /ip-probe:
+    post:
+      description: Analyze and extract provider information for an IP address
+      summary: IP Probe
+      tags: [Security and Networking]
+      operationId: IPProbe
+      deprecated: false
+      produces: [application/json]
+      consumes: [application/x-www-form-urlencoded]
+      parameters:
+      - {name: user-id, in: header, required: true, type: string, description: User
+          Id}
+      - name: output-case
+        in: formData
+        required: false
+        enum: [camel]
+        type: string
+        description: The output case style
+      - {name: ip, in: formData, required: true, type: string, description: IPv4 or
+          IPv6 address}
+      responses:
+        '200':
+          description: ''
+          schema: {$ref: '#/definitions/IPProbeResponse'}
+          headers: {}
+        '400':
+          description: Your API request has been rejected. Check error code for details
+          schema: {$ref: '#/definitions/APIError'}
+        '403':
+          description: You have failed to authenticate
+          schema: {$ref: '#/definitions/APIError'}
+        '500':
+          description: We messed up, sorry! Your request has caused a fatal exception
+          schema: {$ref: '#/definitions/APIError'}
+        default:
+          description: We messed up, sorry! Your request has caused an error
+          schema: {$ref: '#/definitions/APIError'}
+  /host-reputation:
+    post:
+      description: Check the reputation of an IP address, domain name or URL against
+        a comprehensive list of blacklists and blocklists
+      summary: Host Reputation
+      tags: [Security and Networking]
+      operationId: HostReputation
+      deprecated: false
+      produces: [application/json]
+      consumes: [application/x-www-form-urlencoded]
+      parameters:
+      - {name: user-id, in: header, required: true, type: string, description: User
+          Id}
+      - name: output-case
+        in: formData
+        required: false
+        enum: [camel]
+        type: string
+        description: The output case style
+      - {name: host, in: formData, required: true, type: string, description: 'An
+          IP address, domain name, FQDN or URL. <br>If you supply a domain/URL it
+          will be checked against the URI DNSBL lists'}
+      - {name: list-rating, in: formData, required: false, default: 3, type: integer,
+        format: int32, description: Only check lists with this rating or better}
+      - {name: zones, in: formData, required: false, type: string, description: Only
+          check these DNSBL zones/hosts. Multiple zones can be supplied as comma-separated
+          values}
+      responses:
+        '200':
+          description: ''
+          schema: {$ref: '#/definitions/HostReputationResponse'}
+          headers: {}
+        '400':
+          description: Your API request has been rejected. Check error code for details
+          schema: {$ref: '#/definitions/APIError'}
+        '403':
+          description: You have failed to authenticate
+          schema: {$ref: '#/definitions/APIError'}
+        '500':
+          description: We messed up, sorry! Your request has caused a fatal exception
+          schema: {$ref: '#/definitions/APIError'}
+        default:
+          description: We messed up, sorry! Your request has caused an error
+          schema: {$ref: '#/definitions/APIError'}
+  /geocode-address:
+    post:
+      description: Geocode an address, partial address or just the name of a place
+      summary: Geocode Address
+      tags: [Geolocation]
+      operationId: GeocodeAddress
+      deprecated: false
+      produces: [application/json]
+      consumes: [application/x-www-form-urlencoded]
+      parameters:
+      - {name: user-id, in: header, required: true, type: string, description: User
+          Id}
+      - name: output-case
+        in: formData
+        required: false
+        enum: [camel]
+        type: string
+        description: The output case style
+      - {name: address, in: formData, required: false, type: string, description: 'The
+          full address, partial address or name of a place to try and locate. Comma
+          separated address components are preferred.'}
+      - {name: house-number, in: formData, required: false, type: string, description: The
+          house/building number to locate}
+      - {name: street, in: formData, required: false, type: string, description: The
+          street/road name to locate}
+      - {name: city, in: formData, required: false, type: string, description: The
+          city/town name to locate}
+      - {name: county, in: formData, required: false, type: string, description: The
+          county/region name to locate}
+      - {name: state, in: formData, required: false, type: string, description: The
+          state name to locate}
+      - {name: postal-code, in: formData, required: false, type: string, description: The
+          postal code to locate}
+      - {name: country-code, in: formData, required: false, type: string, description: Limit
+          result to this country (the default is no country bias)}
+      - {name: language-code, in: formData, required: false, default: en, type: string,
+        description: 'The language to display results in, available languages are:
+          de, en, es, fr, it, pt, ru, zh', enum: [de, en, es, fr, it, pt, ru, zh]}
+      - {name: fuzzy-search, in: formData, required: false, default: false, type: boolean,
+        description: 'If no matches are found for the given address, start performing
+          a recursive fuzzy search until a geolocation is found. This option is recommended
+          for processing user input or implementing auto-complete. We use a combination
+          of approximate string matching and data cleansing to find possible location
+          matches'}
+      responses:
+        '200':
+          description: ''
+          schema: {$ref: '#/definitions/GeocodeAddressResponse'}
+          headers: {}
+        '400':
+          description: Your API request has been rejected. Check error code for details
+          schema: {$ref: '#/definitions/APIError'}
+        '403':
+          description: You have failed to authenticate
+          schema: {$ref: '#/definitions/APIError'}
+        '500':
+          description: We messed up, sorry! Your request has caused a fatal exception
+          schema: {$ref: '#/definitions/APIError'}
+        default:
+          description: We messed up, sorry! Your request has caused an error
+          schema: {$ref: '#/definitions/APIError'}
+  /ip-info:
+    post:
+      description: Get location information about an IP address and do reverse DNS
+        (PTR) lookups
+      summary: IP Info
+      tags: [Geolocation]
+      operationId: IPInfo
+      deprecated: false
+      produces: [application/json]
+      consumes: [application/x-www-form-urlencoded]
+      parameters:
+      - {name: user-id, in: header, required: true, type: string, description: User
+          Id}
+      - name: output-case
+        in: formData
+        required: false
+        enum: [camel]
+        type: string
+        description: The output case style
+      - {name: ip, in: formData, required: true, type: string, description: IPv4 or
+          IPv6 address}
+      - {name: reverse-lookup, in: formData, required: false, default: false, type: boolean,
+        description: Do a reverse DNS (PTR) lookup. This option can add extra delay
+          to the request so only use it if you need it}
+      responses:
+        '200':
+          description: ''
+          schema: {$ref: '#/definitions/IPInfoResponse'}
+          headers: {}
+        '400':
+          description: Your API request has been rejected. Check error code for details
+          schema: {$ref: '#/definitions/APIError'}
+        '403':
+          description: You have failed to authenticate
+          schema: {$ref: '#/definitions/APIError'}
+        '500':
+          description: We messed up, sorry! Your request has caused a fatal exception
+          schema: {$ref: '#/definitions/APIError'}
+        default:
+          description: We messed up, sorry! Your request has caused an error
+          schema: {$ref: '#/definitions/APIError'}
+  /geocode-reverse:
+    post:
+      description: Convert a geographic coordinate (latitude and longitude) into a
+        real world address
+      summary: Geocode Reverse
+      tags: [Geolocation]
+      operationId: GeocodeReverse
+      deprecated: false
+      produces: [application/json]
+      consumes: [application/x-www-form-urlencoded]
+      parameters:
+      - {name: user-id, in: header, required: true, type: string, description: User
+          Id}
+      - name: output-case
+        in: formData
+        required: false
+        enum: [camel]
+        type: string
+        description: The output case style
+      - {name: latitude, in: formData, required: true, type: string, description: The
+          location latitude in decimal degrees format}
+      - {name: longitude, in: formData, required: true, type: string, description: The
+          location longitude in decimal degrees format}
+      - {name: language-code, in: formData, required: false, default: en, type: string,
+        description: 'The language to display results in, available languages are:
+         de, en, es, fr, it, pt, ru', enum: [de, en, es, fr, it, pt, ru, zh]}
+      - {name: zoom, in: formData, required: false, default: address, type: string,
+        description: 'The zoom level to respond with: <br> <ul> <li>address - the
+          most precise address availablestreet - the street level, city
+          - the city level, state - the state level, country - the
+          country level', enum: [address, city, state, country]}
+      responses:
+        '200':
+          description: ''
+          schema: {$ref: '#/definitions/GeocodeReverseResponse'}
+          headers: {}
+        '400':
+          description: Your API request has been rejected. Check error code for details
+          schema: {$ref: '#/definitions/APIError'}
+        '403':
+          description: You have failed to authenticate
+          schema: {$ref: '#/definitions/APIError'}
+        '500':
+          description: We messed up, sorry! Your request has caused a fatal exception
+          schema: {$ref: '#/definitions/APIError'}
+        default:
+          description: We messed up, sorry! Your request has caused an error
+          schema: {$ref: '#/definitions/APIError'}
+  /convert:
+    post:
+      description: A powerful unit conversion tool
+      summary: Convert
+      tags: [E-commerce]
+      operationId: Convert
+      deprecated: false
+      produces: [application/json]
+      consumes: [application/x-www-form-urlencoded]
+      parameters:
+      - {name: user-id, in: header, required: true, type: string, description: User
+          Id}
+      - name: output-case
+        in: formData
+        required: false
+        enum: [camel]
+        type: string
+        description: The output case style
+      - {name: from-value, in: formData, required: true, type: string, description: The
+          value to convert from (e.g. 10.95)}
+      - {name: from-type, in: formData, required: true, type: string, description: The
+          type of the value to convert from (e.g. USD)}
+      - {name: to-type, in: formData, required: true, type: string, description: The
+          type to convert to (e.g. EUR)}
+      responses:
+        '200':
+          description: ''
+          schema: {$ref: '#/definitions/ConvertResponse'}
+          headers: {}
+        '400':
+          description: Your API request has been rejected. Check error code for details
+          schema: {$ref: '#/definitions/APIError'}
+        '403':
+          description: You have failed to authenticate
+          schema: {$ref: '#/definitions/APIError'}
+        '500':
+          description: We messed up, sorry! Your request has caused a fatal exception
+          schema: {$ref: '#/definitions/APIError'}
+        default:
+          description: We messed up, sorry! Your request has caused an error
+          schema: {$ref: '#/definitions/APIError'}
+  /bin-lookup:
+    post:
+      description: Perform a BIN (Bank Identification Number) or IIN (Issuer Identification
+        Number) lookup
+      summary: BIN Lookup
+      tags: [E-commerce]
+      operationId: BINLookup
+      deprecated: false
+      produces: [application/json]
+      consumes: [application/x-www-form-urlencoded]
+      parameters:
+      - {name: user-id, in: header, required: true, type: string, description: User
+          Id}
+      - name: output-case
+        in: formData
+        required: false
+        enum: [camel]
+        type: string
+        description: The output case style
+      - {name: bin-number, in: formData, required: true, type: string, description: 'The
+          BIN or IIN number. This is the first 6, 8 or 10 digits of a card number,
+          use 8 (or more) digits for the highest level of accuracy'}
+      - {name: customer-ip, in: formData, required: false, type: string, description: Pass
+          in the customers IP address and we will return some extra information about
+          them}
+      responses:
+        '200':
+          description: ''
+          schema: {$ref: '#/definitions/BINLookupResponse'}
+          headers: {}
+        '400':
+          description: Your API request has been rejected. Check error code for details
+          schema: {$ref: '#/definitions/APIError'}
+        '403':
+          description: You have failed to authenticate
+          schema: {$ref: '#/definitions/APIError'}
+        '500':
+          description: We messed up, sorry! Your request has caused a fatal exception
+          schema: {$ref: '#/definitions/APIError'}
+        default:
+          description: We messed up, sorry! Your request has caused an error
+          schema: {$ref: '#/definitions/APIError'}
+  /bin-list-download:
+    post:
+      description: Download our entire BIN database for direct use on your own systems
+      summary: BIN List Download (premium)
+      tags: [E-commerce]
+      operationId: BINListDownload
+      deprecated: false
+      produces: [application/json]
+      consumes: [application/x-www-form-urlencoded]
+      parameters:
+      - {name: user-id, in: header, required: true, type: string, description: User
+          Id}
+      - {name: include-iso3, in: formData, required: false, default: false, type: boolean,
+        description: Include ISO 3-letter country codes and ISO 3-letter currency
+          codes in the data. These will be added to columns 10 and 11 respectively}
+      - {name: include-8digit, in: formData, required: false, default: false, type: boolean,
+        description: Include 8-digit and higher BIN codes. Use this option if you
+          want to download BINs with more than 6-digits}
+      responses:
+        '200':
+          description: ''
+          schema: {type: string, default: '', format: binary}
+          headers: {}
+        '400':
+          description: Your API request has been rejected. Check error code for details
+          schema: {$ref: '#/definitions/APIError'}
+        '403':
+          description: You have failed to authenticate
+          schema: {$ref: '#/definitions/APIError'}
+        '500':
+          description: We messed up, sorry! Your request has caused a fatal exception
+          schema: {$ref: '#/definitions/APIError'}
+        default:
+          description: We messed up, sorry! Your request has caused an error
+          schema: {$ref: '#/definitions/APIError'}
+  /url-info:
+    post:
+      description: Parse, analyze and retrieve content from the supplied URL
+      summary: URL Info
+      tags: [WWW]
+      operationId: URLInfo
+      deprecated: false
+      produces: [application/json]
+      consumes: [application/x-www-form-urlencoded]
+      parameters:
+      - {name: user-id, in: header, required: true, type: string, description: User
+          Id}
+      - name: output-case
+        in: formData
+        required: false
+        enum: [camel]
+        type: string
+        description: The output case style
+      - {name: url, in: formData, required: true, type: string, description: The URL
+          to probe}
+      - {name: fetch-content, in: formData, required: false, default: false, type: boolean,
+        description: 'If this URL responds with html, text, json or xml then return
+          the response. This option is useful if you want to perform further processing
+          on the URL content (e.g. with the HTML Extract or HTML Clean APIs)'}
+      - {name: ignore-certificate-errors, in: formData, required: false, default: false,
+        type: boolean, description: Ignore any TLS/SSL certificate errors and load
+          the URL anyway}
+      - {name: timeout, in: formData, required: false, default: 60, type: integer,
+        format: int32, description: Timeout in seconds. Give up if still trying to
+          load the URL after this number of seconds}
+      - {name: retry, in: formData, required: false, default: 0, type: integer, format: int32,
+        description: If the request fails for any reason try again this many times}
+      responses:
+        '200':
+          description: ''
+          schema: {$ref: '#/definitions/URLInfoResponse'}
+          headers: {}
+        '400':
+          description: Your API request has been rejected. Check error code for details
+          schema: {$ref: '#/definitions/APIError'}
+        '403':
+          description: You have failed to authenticate
+          schema: {$ref: '#/definitions/APIError'}
+        '500':
+          description: We messed up, sorry! Your request has caused a fatal exception
+          schema: {$ref: '#/definitions/APIError'}
+        default:
+          description: We messed up, sorry! Your request has caused an error
+          schema: {$ref: '#/definitions/APIError'}
+  /html-clean:
+    post:
+      description: Clean and sanitize untrusted HTML
+      summary: HTML Clean
+      tags: [WWW]
+      operationId: HTMLClean
+      deprecated: false
+      produces: [application/json]
+      consumes: [application/x-www-form-urlencoded]
+      parameters:
+      - {name: user-id, in: header, required: true, type: string, description: User
+          Id}
+      - {name: content, in: formData, required: true, type: string, description: 'The
+          HTML content. This can be either a URL to load from, a file upload or an
+          HTML content string'}
+      - name: output-type
+        in: formData
+        required: true
+        type: string
+        description: 'The level of sanitization, possible values are: plain-text,
+          simple-text, basic-html, basic-html-with-images, advanced-html'
+        enum: [plain-text, simple-text, basic-html, basic-html-with-images, advanced-html]
+      responses:
+        '200':
+          description: ''
+          schema: {type: string, default: '', format: binary}
+          headers: {}
+        '400':
+          description: Your API request has been rejected. Check error code for details
+          schema: {$ref: '#/definitions/APIError'}
+        '403':
+          description: You have failed to authenticate
+          schema: {$ref: '#/definitions/APIError'}
+        '500':
+          description: We messed up, sorry! Your request has caused a fatal exception
+          schema: {$ref: '#/definitions/APIError'}
+        default:
+          description: We messed up, sorry! Your request has caused an error
+          schema: {$ref: '#/definitions/APIError'}
+  /browser-bot:
+    post:
+      description: Browser bot can extract content, interact with keyboard and mouse
+        events, and execute JavaScript on a website
+      summary: Browser Bot
+      tags: [WWW]
+      operationId: BrowserBot
+      deprecated: false
+      produces: [application/json]
+      consumes: [application/x-www-form-urlencoded]
+      parameters:
+      - {name: user-id, in: header, required: true, type: string, description: User
+          Id}
+      - name: output-case
+        in: formData
+        required: false
+        enum: [camel]
+        type: string
+        description: The output case style
+      - {name: url, in: formData, required: true, type: string, description: The URL
+          to load}
+      - {name: timeout, in: formData, required: false, default: 30, type: integer,
+        format: int32, description: Timeout in seconds. Give up if still trying to
+          load the page after this number of seconds}
+      - {name: delay, in: formData, required: false, default: 3, type: integer, format: int32,
+        description: 'Delay in seconds to wait before capturing any page data, executing
+          selectors or JavaScript'}
+      - {name: selector, in: formData, required: false, type: string, description: 'Extract
+          content from the page DOM using this selector. Commonly known as a CSS selector,
+          you can find a good reference https://www.w3schools.com/cssref/css_selectors.asp'}
+      - {name: user-agent, in: formData, required: false, type: string, description: Override
+          the browsers default user-agent string with this one}
+      - {name: ignore-certificate-errors, in: formData, required: false, default: false,
+        type: boolean, description: Ignore any TLS/SSL certificate errors and load
+          the page anyway}
+      responses:
+        '200':
+          description: ''
+          schema: {$ref: '#/definitions/BrowserBotResponse'}
+          headers: {}
+        '400':
+          description: Your API request has been rejected. Check error code for details
+          schema: {$ref: '#/definitions/APIError'}
+        '403':
+          description: You have failed to authenticate
+          schema: {$ref: '#/definitions/APIError'}
+        '500':
+          description: We messed up, sorry! Your request has caused a fatal exception
+          schema: {$ref: '#/definitions/APIError'}
+        default:
+          description: We messed up, sorry! Your request has caused an error
+          schema: {$ref: '#/definitions/APIError'}
+definitions:
+  PhoneValidateResponse:
+    title: PhoneValidateResponse
+    type: object
+    properties:
+      valid: {description: Is this a valid phone number, type: boolean}
+      internationalCallingCode: {description: The international calling code, type: string}
+      countryCode: {description: The phone number country as an ISO 2-letter country
+          code, type: string}
+      location: {description: 'The phone number location. Could be the city, region
+          or country depending on the type of number', type: string}
+      isMobile: {description: True if this is a mobile number. If the number type
+          is unknown this value will be false, type: boolean}
+      type: {description: 'The number type based on the number prefix. <br>Possible
+          values are: <br> <ul> <li>mobile</li> <li>fixed-line</li> <li>premium-rate</li>
+          <li>toll-free</li> <li>voip</li> <li>unknown (use HLR lookup)</li> </ul>',
+        type: string}
+      internationalNumber: {description: The number represented in full international
+          format (E.164), type: string}
+      localNumber: {description: The number represented in local dialing format, type: string}
+      country: {description: The phone number country, type: string}
+      countryCode3: {description: The phone number country as an ISO 3-letter country
+          code, type: string}
+      currencyCode: {description: ISO 4217 currency code associated with the country,
+        type: string}
+      prefixNetwork: {description: 'The network/carrier who owns the prefix (this
+          only works for some countries, use HLR lookup for global network detection)',
+        type: string}
+    required: [valid, internationalCallingCode, countryCode, location, isMobile, type,
+      internationalNumber, localNumber, country, countryCode3, currencyCode, prefixNetwork]
+  IPProbeResponse:
+    title: IPProbeResponse
+    type: object
+    properties:
+      valid: {description: True if this is a valid IPv4 or IPv6 address, type: boolean}
+      country: {description: Full country name, type: string}
+      providerType: {description: 'The detected provider type, possible values are:
+          <br> <ul> <li>isp - IP belongs to an internet service provider. This includes
+          both mobile, home and business internet providers</li> <li>hosting - IP
+          belongs to a hosting company. This includes website hosting, cloud computing
+          platforms and colocation facilities</li> <li>vpn - IP belongs to a VPN provider</li>
+          <li>proxy - IP belongs to a proxy service. This includes HTTP/SOCKS proxies
+          and browser based proxies</li> <li>university - IP belongs to a university/college/campus</li>
+          <li>government - IP belongs to a government department. This includes military
+          facilities</li> <li>commercial - IP belongs to a commercial entity such
+          as a corporate headquarters or company office</li> <li>unknown - could not
+          identify the provider type</li> </ul>', type: string}
+      countryCode: {description: ISO 2-letter country code, type: string}
+      hostname: {description: The IPs full hostname (PTR), type: string}
+      providerDomain: {description: The domain name of the provider, type: string}
+      city: {description: Full city name (if detectable), type: string}
+      providerWebsite: {description: The website URL for the provider, type: string}
+      ip: {description: The IP address, type: string}
+      region: {description: Full region name (if detectable), type: string}
+      providerDescription: {description: A description of the provider (usually extracted
+          from the providers website), type: string}
+      continentCode: {description: ISO 2-letter continent code, type: string}
+      isHosting: {description: 'True if this IP belongs to a hosting company. Note
+          that this can still be true even if the provider type is VPN/proxy, this
+          occurs in the case that the IP is detected as both types', type: boolean}
+      isIsp: {description: 'True if this IP belongs to an internet service provider.
+          Note that this can still be true even if the provider type is VPN/proxy,
+          this occurs in the case that the IP is detected as both types', type: boolean}
+      countryCode3: {description: ISO 3-letter country code, type: string}
+      currencyCode: {description: ISO 4217 currency code associated with the country,
+        type: string}
+      isVpn: {description: True if this IP ia a VPN, type: boolean}
+      isProxy: {description: True if this IP ia a proxy, type: boolean}
+      asn: {description: The autonomous system (AS) number, type: string}
+      asCidr: {description: The autonomous system (AS) CIDR range, type: string}
+      asCountryCode: {description: The autonomous system (AS) ISO 2-letter country
+          code, type: string}
+      asCountryCode3: {description: The autonomous system (AS) ISO 3-letter country
+          code, type: string}
+      asDomains:
+        description: Array of all the domains associated with the autonomous system
+          (AS)
+        type: array
+        items: {type: string}
+      asDescription: {description: The autonomous system (AS) description / company
+          name, type: string}
+      asAge: {description: The age of the autonomous system (AS) in number of years
+          since registration, type: integer, format: int32}
+      hostDomain: {description: The IPs host domain, type: string}
+      vpnDomain: {description: The domain of the VPN provider (may be empty if the
+          VPN domain is not detectable), type: string}
+      isV6: {description: True if this is a IPv6 address. False if IPv4, type: boolean}
+      isV4Mapped: {description: 'True if this is a https://en.wikipedia.org/wiki/IPv6#IPv4-mapped_IPv6_addresses', type: boolean}
+      isBogon: {description: 'True if this is a bogon IP address such as a private
+          network, local network or reserved address', type: boolean}
+    required: [valid, country, providerType, countryCode, hostname, providerDomain,
+      city, providerWebsite, ip, region, providerDescription, continentCode, isHosting,
+      isIsp, countryCode3, currencyCode, isVpn, isProxy, asn, asCidr, asCountryCode,
+      asCountryCode3, asDomains, asDescription, asAge, hostDomain, vpnDomain, isV6,
+      isV4Mapped, isBogon]
+  PhonePlaybackResponse:
+    title: PhonePlaybackResponse
+    type: object
+    properties:
+      calling: {description: True if the call is being made now, type: boolean}
+      numberValid: {description: True if this a valid phone number, type: boolean}
+    required: [calling, numberValid]
+  UALookupResponse:
+    title: UALookupResponse
+    type: object
+    properties:
+      ua: {description: The user agent string, type: string}
+      type: {description: 'The user agent type, possible values are: <br> <ul> <li>desktop</li>
+          <li>phone</li> <li>tablet</li> <li>wearable</li> <li>tv</li> <li>console</li>
+          <li>email</li> <li>library</li> <li>robot</li> <li>unknown</li> </ul>',
+        type: string}
+      name: {description: The client software name, type: string}
+      version: {description: The client software full version, type: string}
+      versionMajor: {description: The client software major version, type: string}
+      browserEngine: {description: If the client is a web browser which underlying
+          browser engine does it use, type: string}
+      browserRelease: {description: If the client is a web browser which year was
+          this browser version released, type: string}
+      os: {description: The full operating system name, type: string}
+      osFamily: {description: 'The operating system family. The major OS families
+          are: Android, Windows, macOS, iOS, Linux', type: string}
+      osVersion: {description: The operating system full version, type: string}
+      osVersionMajor: {description: The operating system major version, type: string}
+      isMobile: {description: Is this a mobile device (e.g. a phone or tablet), type: boolean}
+      isWebview: {description: Is this a WebView / embedded software client, type: boolean}
+      deviceBrand: {description: The device brand / manufacturer, type: string}
+      deviceModel: {description: The device model, type: string}
+      deviceModelCode: {description: The device model code, type: string}
+      deviceRelease: {description: The year when this device model was released, type: string}
+      devicePrice: {description: The average device price on release in USD, type: number,
+        format: double}
+      deviceResolution: {description: The device display resolution in physical pixels
+          (e.g. 720x1280), type: string}
+      devicePpi: {description: The device display PPI (pixels per inch), type: number,
+        format: double}
+      devicePixelRatio: {description: The device display pixel ratio (the ratio of
+          the resolution in physical pixels to the resolution in CSS pixels), type: number,
+        format: double}
+      deviceWidthPx: {description: The device display width in CSS 'px', type: number,
+        format: double}
+      deviceHeightPx: {description: The device display height in CSS 'px', type: number,
+        format: double}
+    required: [ua, type, name, version, versionMajor, browserEngine, browserRelease,
+      os, osFamily, osVersion, osVersionMajor, isMobile, isWebview, deviceBrand, deviceModel,
+      deviceModelCode, deviceRelease, devicePrice, deviceResolution, devicePpi, devicePixelRatio,
+      deviceWidthPx, deviceHeightPx]
+  HLRLookupResponse:
+    title: HLRLookupResponse
+    type: object
+    properties:
+      numberValid: {description: True if this a valid phone number, type: boolean}
+      internationalCallingCode: {description: The international calling code, type: string}
+      mnc: {description: The mobile MNC number (Mobile Network Code), type: string}
+      numberType: {description: 'The number type, possible values are: <br> <ul> <li>mobile</li>
+          <li>fixed-line</li> <li>premium-rate</li> <li>toll-free</li> <li>voip</li>
+          <li>unknown</li> </ul>', type: string}
+      hlrValid: {description: Was the HLR lookup successful. If true then this is
+          a working and registered cell-phone or mobile device (SMS and phone calls
+          will be delivered), type: boolean}
+      hlrStatus: {description: 'The HLR lookup status, possible values are: <br> <ul>
+          <li>ok - the HLR lookup was successful and the device is connected</li>
+          <li>absent - the number was once registered but the device has been switched
+          off or out of network range for some time</li> <li>unknown - the number
+          is not known by the mobile network</li> <li>invalid - the number is not
+          a valid mobile MSISDN number</li> <li>fixed-line - the number is a registered
+          fixed-line not mobile</li> <li>voip - the number has been detected as a
+          VOIP line</li> <li>failed - the HLR lookup has failed, we could not determine
+          the real status of this number</li> </ul>', type: string}
+      portedNetwork: {description: The ported to network/carrier name (only set if
+          the number has been ported), type: string}
+      imsi: {description: The mobile IMSI number (International Mobile Subscriber
+          Identity), type: string}
+      mcc: {description: The mobile MCC number (Mobile Country Code), type: string}
+      internationalNumber: {description: The number represented in full international
+          format, type: string}
+      localNumber: {description: The number represented in local dialing format, type: string}
+      countryCode: {description: The number location as an ISO 2-letter country code,
+        type: string}
+      isPorted: {description: Has this number been ported to another network, type: boolean}
+      msin: {description: The mobile MSIN number (Mobile Subscription Identification
+          Number), type: string}
+      location: {description: 'The number location. Could be a city, region or country
+          depending on the type of number', type: string}
+      originNetwork: {description: The origin network/carrier name, type: string}
+      isMobile: {description: 'True if this is a mobile number (only true with 100%
+          certainty, if the number type is unknown this value will be false)', type: boolean}
+      isRoaming: {description: Is this number currently roaming from its origin country,
+        type: boolean}
+      country: {description: The phone number country, type: string}
+      countryCode3: {description: The number location as an ISO 3-letter country code,
+        type: string}
+      currencyCode: {description: ISO 4217 currency code associated with the country,
+        type: string}
+      roamingCountryCode: {description: 'If the number is currently roaming, the ISO
+          2-letter country code of the roaming in country', type: string}
+      msc: {description: The mobile MSC number (Mobile Switching Center), type: string}
+      currentNetwork: {description: The currently used network/carrier name, type: string}
+    required: [numberValid, internationalCallingCode, mnc, numberType, hlrValid, hlrStatus,
+      portedNetwork, imsi, mcc, internationalNumber, localNumber, countryCode, isPorted,
+      msin, location, originNetwork, isMobile, isRoaming, country, countryCode3, currencyCode,
+      roamingCountryCode, msc, currentNetwork]
+  SMSVerifyResponse:
+    title: SMSVerifyResponse
+    type: object
+    properties:
+      numberValid: {description: True if this a valid phone number, type: boolean}
+      securityCode: {description: 'The security code generated, you can save this
+          code to perform your own verification or you can use the <a href="https://www.neutrinoapi.com/api/verify-security-code/">Verify
+          Security Code API</a>', type: string}
+      sent: {description: True if the SMS has been sent, type: boolean}
+    required: [numberValid, securityCode, sent]
+  Blacklist:
+    title: Blacklist
+    type: object
+    properties:
+      isListed: {description: True if the host is currently black-listed, type: boolean}
+      listHost: {description: The hostname of the DNSBL, type: string}
+      listRating: {description: 'The list rating [1-3] with 1 being the best rating
+          and 3 the lowest rating', type: integer, format: int32}
+      listName: {description: The name of the DNSBL, type: string}
+      txtRecord: {description: The TXT record returned for this listing (only set
+          if listed), type: string}
+      returnCode: {description: The specific return code for this listing (only set
+          if listed), type: string}
+      responseTime: {description: The DNSBL server response time in milliseconds,
+        type: integer, format: int32}
+    required: [isListed, listHost, listRating, listName, txtRecord, returnCode, responseTime]
+  ConvertResponse:
+    title: ConvertResponse
+    type: object
+    properties:
+      valid: {description: True if the conversion was successful and produced a valid
+          result, type: boolean}
+      result: {description: The result of the conversion in string format, type: string}
+      fromValue: {description: The value being converted from, type: string}
+      toType: {description: The type being converted to, type: string}
+      fromType: {description: The type of the value being converted from, type: string}
+      resultFloat: {description: The result of the conversion as a floating-point
+          number, type: number, format: double}
+    required: [valid, result, fromValue, toType, fromType, resultFloat]
+  APIError:
+    title: APIError
+    type: object
+    properties:
+      apiError: {description: API error code. If set and > 0 then an API error has
+          occurred your request could not be completed, type: integer, format: int32}
+      apiErrorMsg: {description: API error message, type: string}
+    required: [apiError, apiErrorMsg]
+  SMSMessageResponse:
+    title: SMSMessageResponse
+    type: object
+    properties:
+      numberValid: {description: True if this a valid phone number, type: boolean}
+      sent: {description: True if the SMS has been sent, type: boolean}
+    required: [numberValid, sent]
+  PhoneVerifyResponse:
+    title: PhoneVerifyResponse
+    type: object
+    properties:
+      numberValid: {description: True if this a valid phone number, type: boolean}
+      calling: {description: True if the call is being made now, type: boolean}
+      securityCode: {description: 'The security code generated, you can save this
+          code to perform your own verification or you can use the <a href="https://www.neutrinoapi.com/api/verify-security-code/">Verify
+          Security Code API</a>', type: string}
+    required: [numberValid, calling, securityCode]
+  HostReputationResponse:
+    title: HostReputationResponse
+    type: object
+    properties:
+      isListed: {description: Is this host blacklisted, type: boolean}
+      lists:
+        description: Array of objects for each DNSBL checked
+        type: array
+        items: {$ref: '#/definitions/Blacklist'}
+      listCount: {description: The number of DNSBLs the host is listed on, type: integer,
+        format: int32}
+      host: {description: The IP address or host name, type: string}
+    required: [isListed, lists, listCount, host]
+  Location:
+    title: Location
+    type: object
+    properties:
+      country: {description: The country of the location, type: string}
+      address: {description: The fully formatted address, type: string}
+      city: {description: The city of the location, type: string}
+      countryCode: {description: The ISO 2-letter country code of the location, type: string}
+      countryCode3: {description: The ISO 3-letter country code of the location, type: string}
+      latitude: {description: The location latitude, type: number, format: double}
+      postalCode: {description: The postal code for the location, type: string}
+      longitude: {description: The location longitude, type: number, format: double}
+      state: {description: The state of the location, type: string}
+      addressComponents:
+        description: The components which make up the address such as road, city,
+          state, etc
+        type: object
+        additionalProperties: {type: string}
+      currencyCode: {description: ISO 4217 currency code associated with the country,
+        type: string}
+      locationType: {description: 'The detected location type ordered roughly from
+          most to least precise, possible values are: <br> <ul> <li>address - indicates
+          a precise street address</li> <li>street - accurate to the street level
+          but may not point to the exact location of the house/building number</li>
+          <li>city - accurate to the city level, this includes villages, towns, suburbs,
+          etc</li> <li>postal-code - indicates a postal code area (no house or street
+          information present)</li> <li>railway - location is part of a rail network
+          such as a station or railway track</li> <li>natural - indicates a natural
+          feature, for example a mountain peak or a waterway</li> <li>island - location
+          is an island or archipelago</li> <li>administrative - indicates an administrative
+          boundary such as a country, state or province</li> </ul>', type: string}
+      locationTags:
+        description: 'Array of strings containing any location tags associated with
+          the address. Tags are additional pieces of metadata about a specific location,
+          there are thousands of different tags. Some examples of tags: shop, office,
+          cafe, bank, pub'
+        type: array
+        items: {type: string}
+      timezone:
+        description: Map containing timezone details for the location
+        type: object
+        additionalProperties: {$ref: '#/definitions/Timezone'}
+    required: [country, address, city, countryCode, countryCode3, latitude, postalCode,
+      longitude, state, addressComponents, currencyCode, locationType, locationTags,
+      timezone]
+  EmailValidateResponse:
+    title: EmailValidateResponse
+    type: object
+    properties:
+      valid: {description: Is this a valid email, type: boolean}
+      syntaxError: {description: True if this address has a syntax error, type: boolean}
+      domain: {description: The email domain, type: string}
+      domainError: {description: True if this address has a domain error (e.g. no
+          valid mail server records), type: boolean}
+      isFreemail: {description: True if this address is a free-mail address, type: boolean}
+      email: {description: The email address. If you have used the fix-typos option
+          then this will be the fixed address, type: string}
+      isDisposable: {description: 'True if this address is a disposable, temporary
+          or darknet related email address', type: boolean}
+      typosFixed: {description: True if typos have been fixed, type: boolean}
+      isPersonal: {description: 'True if this address belongs to a person. False if
+          this is a role based address, e.g. admin@, help@, office@, etc.', type: boolean}
+      provider: {description: The email service provider domain, type: string}
+    required: [valid, syntaxError, domain, domainError, isFreemail, email, isDisposable,
+      typosFixed, isPersonal, provider]
+  BadWordFilterResponse:
+    title: BadWordFilterResponse
+    type: object
+    properties:
+      badWordsList:
+        description: An array of the bad words found
+        type: array
+        items: {type: string}
+      badWordsTotal: {description: Total number of bad words detected, type: integer,
+        format: int32}
+      censoredContent: {description: The censored content (only set if censor-character
+          has been set), type: string}
+      isBad: {description: Does the text contain bad words, type: boolean}
+    required: [badWordsList, badWordsTotal, censoredContent, isBad]
+  BINLookupResponse:
+    title: BINLookupResponse
+    type: object
+    properties:
+      country: {description: The full country name of the issuer, type: string}
+      ipCity: {description: The city of the customers IP (if detectable), type: string}
+      ipMatchesBin: {description: True if the customers IP country matches the BIN
+          country, type: boolean}
+      cardType: {description: 'The card type, will always be one of: DEBIT, CREDIT,
+          CHARGE CARD', type: string}
+      cardCategory: {description: 'The card category. There are many different card
+          categories the most common card categories are: CLASSIC, BUSINESS, CORPORATE,
+          PLATINUM, PREPAID', type: string}
+      ipCountryCode: {description: The ISO 2-letter country code of the customers
+          IP, type: string}
+      ipCountry: {description: The country of the customers IP, type: string}
+      issuer: {description: The card issuer, type: string}
+      ipBlocklisted: {description: 'True if the customers IP is listed on one of our
+          blocklists, see the <a href="http://www.neutrinoapi.com/api/ip-blocklist/">IP
+          Blocklist API</a>', type: boolean}
+      valid: {description: Is this a valid BIN or IIN number, type: boolean}
+      ipBlocklists:
+        description: An array of strings indicating which blocklists this IP is listed
+          on
+        type: array
+        items: {type: string}
+      issuerWebsite: {description: The card issuers website, type: string}
+      countryCode: {description: The ISO 2-letter country code of the issuer, type: string}
+      ipRegion: {description: The region of the customers IP (if detectable), type: string}
+      cardBrand: {description: The card brand (e.g. Visa or Mastercard), type: string}
+      issuerPhone: {description: The card issuers phone number, type: string}
+      countryCode3: {description: The ISO 3-letter country code of the issuer, type: string}
+      currencyCode: {description: ISO 4217 currency code associated with the country
+          of the issuer, type: string}
+      ipCountryCode3: {description: The ISO 3-letter country code of the customers
+          IP, type: string}
+      isCommercial: {description: Is this a commercial/business use card, type: boolean}
+      isPrepaid: {description: Is this a prepaid or prepaid reloadable card, type: boolean}
+      binNumber: {description: The BIN or IIN number, type: string}
+    required: [country, ipCity, ipMatchesBin, cardType, cardCategory, ipCountryCode,
+      ipCountry, issuer, ipBlocklisted, valid, ipBlocklists, issuerWebsite, countryCode,
+      ipRegion, cardBrand, issuerPhone, countryCode3, currencyCode, ipCountryCode3,
+      isCommercial, isPrepaid, binNumber]
+  GeocodeAddressResponse:
+    title: GeocodeAddressResponse
+    type: object
+    properties:
+      found: {description: The number of possible matching locations found, type: integer,
+        format: int32}
+      locations:
+        description: Array of matching location objects
+        type: array
+        items: {$ref: '#/definitions/Location'}
+    required: [found, locations]
+  IPBlocklistResponse:
+    title: IPBlocklistResponse
+    type: object
+    properties:
+      ip: {description: The IP address, type: string}
+      isBot: {description: IP is hosting a malicious bot or is part of a botnet. Includes
+          brute-force crackers, type: boolean}
+      isExploitBot: {description: IP is hosting an exploit finding bot or is running
+          exploit scanning software, type: boolean}
+      isMalware: {description: IP is involved in distributing or is running malware,
+        type: boolean}
+      isSpider: {description: IP is running a hostile web spider / web crawler, type: boolean}
+      isDshield: {description: IP has been flagged as an attack source on DShield
+          (dshield.org), type: boolean}
+      listCount: {description: The number of blocklists the IP is listed on, type: integer,
+        format: int32}
+      isProxy: {description: IP has been detected as an anonymous web proxy or anonymous
+          HTTP proxy, type: boolean}
+      isHijacked: {description: IP is part of a hijacked netblock or a netblock controlled
+          by a criminal organization, type: boolean}
+      isTor: {description: IP is a Tor node or running a Tor related service, type: boolean}
+      isSpyware: {description: IP is involved in distributing or is running spyware,
+        type: boolean}
+      isSpamBot: {description: 'IP address is hosting a spam bot, comment spamming
+          or any other spamming type software', type: boolean}
+      isListed: {description: Is this IP on a blocklist, type: boolean}
+      isVpn: {description: IP belongs to a public VPN provider (only set if the 'vpn-lookup'
+          option is enabled), type: boolean}
+      lastSeen: {description: The last time this IP was seen on a blocklist (in Unix
+          time or 0 if not listed recently), type: integer, format: int32}
+      blocklists:
+        description: An array of strings indicating which blocklists this IP is listed
+          on (empty if not listed)
+        type: array
+        items: {type: string}
+      sensors:
+        description: An array of objects containing details on which sensors were
+          used to detect this IP
+        type: array
+        items: {type: string}
+    required: [ip, isBot, isExploitBot, isMalware, isSpider, isDshield, listCount,
+      isProxy, isHijacked, isTor, isSpyware, isSpamBot, isListed, isVpn, lastSeen,
+      blocklists, sensors]
+  VerifySecurityCodeResponse:
+    title: VerifySecurityCodeResponse
+    type: object
+    properties:
+      verified: {description: True if the code is valid, type: boolean}
+    required: [verified]
+  GeocodeReverseResponse:
+    title: GeocodeReverseResponse
+    type: object
+    properties:
+      country: {description: The country of the location, type: string}
+      found: {description: True if these coordinates map to a real location, type: boolean}
+      address: {description: The fully formatted address, type: string}
+      city: {description: The city of the location, type: string}
+      countryCode: {description: The ISO 2-letter country code of the location, type: string}
+      postalCode: {description: The postal code for the location, type: string}
+      state: {description: The state of the location, type: string}
+      addressComponents:
+        description: The components which make up the address such as road, city,
+          state, etc
+        type: object
+        additionalProperties: {type: string}
+      countryCode3: {description: The ISO 3-letter country code of the location, type: string}
+      currencyCode: {description: ISO 4217 currency code associated with the country,
+        type: string}
+      locationType: {description: 'The detected location type ordered roughly from
+          most to least precise, possible values are: <br> <ul> <li>address - indicates
+          a precise street address</li> <li>street - accurate to the street level
+          but may not point to the exact location of the house/building number</li>
+          <li>city - accurate to the city level, this includes villages, towns, suburbs,
+          etc</li> <li>postal-code - indicates a postal code area (no house or street
+          information present)</li> <li>railway - location is part of a rail network
+          such as a station or railway track</li> <li>natural - indicates a natural
+          feature, for example a mountain peak or a waterway</li> <li>island - location
+          is an island or archipelago</li> <li>administrative - indicates an administrative
+          boundary such as a country, state or province</li> </ul>', type: string}
+      locationTags:
+        description: 'Array of strings containing any location tags associated with
+          the address. Tags are additional pieces of metadata about a specific location,
+          there are thousands of different tags. Some examples of tags: shop, office,
+          cafe, bank, pub'
+        type: array
+        items: {type: string}
+      latitude: {description: The location latitude, type: number, format: double}
+      longitude: {description: The location longitude, type: number, format: double}
+      timezone:
+        description: Map containing timezone details for the location
+        type: object
+        additionalProperties: {$ref: '#/definitions/Timezone'}
+    required: [country, found, address, city, countryCode, postalCode, state, addressComponents,
+      countryCode3, currencyCode, locationType, locationTags, latitude, longitude,
+      timezone]
+  IPInfoResponse:
+    title: IPInfoResponse
+    type: object
+    properties:
+      valid: {description: True if this is a valid IPv4 or IPv6 address, type: boolean}
+      country: {description: Full country name, type: string}
+      hostname: {description: The IPs full hostname (only set if reverse-lookup has
+          been used), type: string}
+      city: {description: Name of the city (if detectable), type: string}
+      countryCode: {description: ISO 2-letter country code, type: string}
+      latitude: {description: Location latitude, type: number, format: double}
+      region: {description: Name of the region (if detectable), type: string}
+      longitude: {description: Location longitude, type: number, format: double}
+      continentCode: {description: ISO 2-letter continent code, type: string}
+      ip: {description: The IP address, type: string}
+      countryCode3: {description: ISO 3-letter country code, type: string}
+      currencyCode: {description: ISO 4217 currency code associated with the country,
+        type: string}
+      hostDomain: {description: The IPs host domain (only set if reverse-lookup has
+          been used), type: string}
+      timezone:
+        description: Map containing timezone details for the location
+        type: object
+        additionalProperties: {$ref: '#/definitions/Timezone'}
+      isV6: {description: True if this is a IPv6 address. False if IPv4, type: boolean}
+      isV4Mapped: {description: 'True if this is a <a href="https://en.wikipedia.org/wiki/IPv6#IPv4-mapped_IPv6_addresses">IPv4
+          mapped IPv6 address</a>', type: boolean}
+      isBogon: {description: 'True if this is a bogon IP address such as a private
+          network, local network or reserved address', type: boolean}
+    required: [valid, country, hostname, city, countryCode, latitude, region, longitude,
+      continentCode, ip, countryCode3, currencyCode, hostDomain, timezone, isV6, isV4Mapped,
+      isBogon]
+  URLInfoResponse:
+    title: URLInfoResponse
+    type: object
+    properties:
+      httpStatusMessage: {description: The HTTP status message assoicated with the
+          status code, type: integer, format: int32}
+      serverRegion: {description: 'The servers IP geo-location: full region name (if
+          detectable)', type: string}
+      query:
+        description: A key-value map of the URL query paramaters
+        type: object
+        additionalProperties: {type: string}
+      serverName: {description: The name of the server software hosting this URL,
+        type: string}
+      urlPort: {description: The URL port, type: integer, format: int32}
+      serverCountry: {description: 'The servers IP geo-location: full country name',
+        type: string}
+      real: {description: Is this URL actually serving real content, type: boolean}
+      serverCity: {description: 'The servers IP geo-location: full city name (if detectable)',
+        type: string}
+      urlPath: {description: The URL path, type: string}
+      url: {description: The fully qualified URL. This may be different to the URL
+          requested if http-redirect is true, type: string}
+      valid: {description: Is this a valid well-formed URL, type: boolean}
+      serverHostname: {description: The servers hostname (PTR record), type: string}
+      loadTime: {description: The time taken to load the URL content in seconds, type: number,
+        format: double}
+      httpOk: {description: True if this URL responded with an HTTP OK (200) status,
+        type: boolean}
+      contentSize: {description: The size of the URL content in bytes, type: integer,
+        format: int32}
+      httpStatus: {description: The HTTP status code this URL responded with. An HTTP
+          status of 0 indicates a network level issue, type: integer, format: int32}
+      serverCountryCode: {description: 'The servers IP geo-location: ISO 2-letter
+          country code', type: string}
+      contentEncoding: {description: The encoding format the URL uses, type: string}
+      serverIp: {description: The IP address of the server hosting this URL, type: string}
+      urlProtocol: {description: 'The URL protocol, usually http or https', type: string}
+      contentType: {description: The content-type this URL serves, type: string}
+      httpRedirect: {description: True if this URL responded with an HTTP redirect,
+        type: boolean}
+      content: {description: The actual content this URL responded with. Only set
+          if the 'fetch-content' option was used, type: string}
+      isTimeout: {description: True if a timeout occurred while loading the URL. You
+          can set the timeout with the request parameter 'timeout', type: boolean}
+      title: {description: The document title, type: string}
+      languageCode: {description: The ISO 2-letter language code of the page. Extracted
+          from either the HTML document or via HTTP headers, type: string}
+      isError: {description: 'True if an error occurred while loading the URL. This
+          includes network errors, TLS errors and timeouts', type: boolean}
+    required: [httpStatusMessage, serverRegion, query, serverName, urlPort, serverCountry,
+      real, serverCity, urlPath, url, valid, serverHostname, loadTime, httpOk, contentSize,
+      httpStatus, serverCountryCode, contentEncoding, serverIp, urlProtocol, contentType,
+      httpRedirect, content, isTimeout, title, languageCode, isError]
+  Timezone:
+    title: Timezone
+    description: Map containing timezone details
+    type: object
+    properties:
+      id: {description: The time zone ID as per the IANA time zone database (tzdata),
+        example: America/New_York, type: string}
+      name: {description: The full time zone name, example: Eastern Daylight Time,
+        type: string}
+      abbr: {description: The time zone abbreviation, example: EDT, type: string}
+      date: {description: The current date at the time zone (ISO 8601 format 'YYYY-MM-DD'),
+        example: '2021-01-01', type: string}
+      time: {description: 'The current time at the time zone (ISO 8601 format ''hh:mm:ss.sss'')',
+        example: '12:30:00.00', type: string}
+      offset: {description: 'The UTC offset for the time zone (ISO 8601 format ''±hh:mm'')',
+        type: string}
+    required: [id, name, abbr, date, time, offset]
+  EmailVerifyResponse:
+    title: EmailVerifyResponse
+    type: object
+    properties:
+      valid: {description: Is this a valid email address (syntax and domain is valid),
+        type: boolean}
+      verified: {description: True if this address has passed SMTP verification. Check
+          the smtp-status and smtp-response fields for specific verification details,
+        type: boolean}
+      email: {description: The email address. If you have used the fix-typos option
+          then this will be the fixed address, type: string}
+      typosFixed: {description: True if typos have been fixed, type: boolean}
+      syntaxError: {description: True if this address has a syntax error, type: boolean}
+      domainError: {description: True if this address has a domain error (e.g. no
+          valid mail server records), type: boolean}
+      domain: {description: The email domain, type: string}
+      provider: {description: The email service provider domain, type: string}
+      isFreemail: {description: True if this address is a free-mail address, type: boolean}
+      isDisposable: {description: 'True if this address is a disposable, temporary
+          or darknet related email address', type: boolean}
+      isPersonal: {description: 'True if this address is for a person. False if this
+          is a role based address, e.g. admin@, help@, office@, etc.', type: boolean}
+      smtpStatus: {description: 'The SMTP verification status for the address: <br>
+          <ul> <li>ok - SMTP verification was successful, this is a real address that
+          can receive mail</li> <li>invalid - this is not a valid email address (has
+          either a domain or syntax error)</li> <li>absent - this address is not registered
+          with the email service provider</li> <li>unresponsive - the mail server(s)
+          for this address timed-out or refused to open an SMTP connection</li> <li>unknown
+          - sorry, we could not reliably determine the real status of this address
+          (this address may or may not exist)</li> </ul>', type: string}
+      smtpResponse: {description: The raw SMTP response message received during verification,
+        type: string}
+      isCatchAll: {description: True if this email domain has a catch-all policy (it
+          will accept mail for any username), type: boolean}
+      isDeferred: {description: 'True if the mail server responded with a temporary
+          failure (either a 4xx response code or unresponsive server). You can retry
+          this address later, we recommend waiting at least 15 minutes before retrying',
+        type: boolean}
+    required: [valid, verified, email, typosFixed, syntaxError, domainError, domain,
+      provider, isFreemail, isDisposable, isPersonal, smtpStatus, smtpResponse, isCatchAll,
+      isDeferred]
+  BrowserBotResponse:
+    title: BrowserBotResponse
+    type: object
+    properties:
+      url: {description: The page URL, type: string}
+      content: {description: 'The complete raw, decompressed and decoded page content.
+          Usually will be either HTML, JSON or XML', type: string}
+      mimeType: {description: The document MIME type, type: string}
+      title: {description: The document title, type: string}
+      isError: {description: True if an error has occurred loading the page. Check
+          the 'error-message' field for details, type: boolean}
+      isTimeout: {description: True if a timeout occurred while loading the page.
+          You can set the timeout with the request parameter 'timeout', type: boolean}
+      errorMessage: {description: Contains the error message if an error has occurred
+          ('is-error' will be true), type: string}
+      httpStatusCode: {description: The HTTP status code the URL returned, type: integer,
+        format: int32}
+      httpStatusMessage: {description: The HTTP status message the URL returned, type: string}
+      isHttpOk: {description: True if the HTTP status is OK (200), type: boolean}
+      isHttpRedirect: {description: True if the URL responded with an HTTP redirect,
+        type: boolean}
+      httpRedirectUrl: {description: The redirected URL if the URL responded with
+          an HTTP redirect, type: string}
+      serverIp: {description: The HTTP servers IP address, type: string}
+      loadTime: {description: The number of seconds taken to load the page (from initial
+          request until DOM ready), type: number, format: double}
+      responseHeaders:
+        description: Map containing all the HTTP response headers the URL responded
+          with
+        type: object
+        additionalProperties: {type: string}
+      isSecure: {description: True if the page is secured using TLS/SSL, type: boolean}
+      securityDetails:
+        description: Map containing details of the TLS/SSL setup
+        type: object
+        additionalProperties: {type: string}
+      elements:
+        description: Array containing all the elements matching the supplied selector.
+          <br>Each element object will contain the text content, HTML content and
+          all current element attributes
+        type: array
+        items: {type: string}
+      execResults:
+        description: If you executed any JavaScript this array holds the results as
+          objects
+        type: array
+        items: {type: string}
+      languageCode: {description: The ISO 2-letter language code of the page. Extracted
+          from either the HTML document or via HTTP headers, type: string}
+    required: [url, content, mimeType, title, isError, isTimeout, errorMessage, httpStatusCode,
+      httpStatusMessage, isHttpOk, isHttpRedirect, httpRedirectUrl, serverIp, loadTime,
+      responseHeaders, isSecure, securityDetails, elements, execResults, languageCode]
+parameters: {}
+responses: {}
+securityDefinitions:
+  API Key: {type: apiKey, in: header, name: api-key}
+security:
+- API Key: []
+tags:
+- {name: Imaging, description: ''}
+- {name: Telephony, description: ''}
+- {name: Data Tools, description: ''}
+- {name: Security and Networking, description: ''}
+- {name: Geolocation, description: ''}
+- {name: E-commerce, description: ''}
+- {name: WWW, description: ''}

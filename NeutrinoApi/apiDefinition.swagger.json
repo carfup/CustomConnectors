@@ -662,13 +662,12 @@
           {
             "name": "output-case",
             "in": "formData",
-            "required": false,
-            "enum": [
-              "camel"
-            ],
+            "x-ms-visibility": "internal",
+            "default": "camel",
             "type": "string",
             "description": "The output case style",
-            "x-ms-summary": "Output Case"
+            "x-ms-summary": "Output Case",
+            "required" : true
           },
           {
             "name": "number",
@@ -763,13 +762,12 @@
           {
             "name": "output-case",
             "in": "formData",
-            "required": false,
-            "enum": [
-              "camel"
-            ],
+            "x-ms-visibility": "internal",
+            "default": "camel",
             "type": "string",
             "description": "The output case style",
-            "x-ms-summary": "Output Case"
+            "x-ms-summary": "Output Case",
+            "required" : true
           },
           {
             "name": "number",
@@ -901,13 +899,12 @@
           {
             "name": "output-case",
             "in": "formData",
-            "required": false,
-            "enum": [
-              "camel"
-            ],
+            "x-ms-visibility": "internal",
+            "default": "camel",
             "type": "string",
             "description": "The output case style",
-            "x-ms-summary": "Output Case"
+            "x-ms-summary": "Output Case",
+            "required" : true
           },
           {
             "name": "number",
@@ -982,13 +979,12 @@
           {
             "name": "output-case",
             "in": "formData",
-            "required": false,
-            "enum": [
-              "camel"
-            ],
+            "x-ms-visibility": "internal",
+            "default": "camel",
             "type": "string",
             "description": "The output case style",
-            "x-ms-summary": "Output Case"
+            "x-ms-summary": "Output Case",
+            "required" : true
           },
           {
             "name": "number",
@@ -1091,13 +1087,12 @@
           {
             "name": "output-case",
             "in": "formData",
-            "required": false,
-            "enum": [
-              "camel"
-            ],
+            "x-ms-visibility": "internal",
+            "default": "camel",
             "type": "string",
             "description": "The output case style",
-            "x-ms-summary": "Output Case"
+            "x-ms-summary": "Output Case",
+            "required" : true
           },
           {
             "name": "number",
@@ -1239,13 +1234,12 @@
           {
             "name": "output-case",
             "in": "formData",
-            "required": false,
-            "enum": [
-              "camel"
-            ],
+            "x-ms-visibility": "internal",
+            "default": "camel",
             "type": "string",
             "description": "The output case style",
-            "x-ms-summary": "Output Case"
+            "x-ms-summary": "Output Case",
+            "required" : true
           },
           {
             "name": "security-code",
@@ -1320,13 +1314,12 @@
           {
             "name": "output-case",
             "in": "formData",
-            "required": false,
-            "enum": [
-              "camel"
-            ],
+            "x-ms-visibility": "internal",
+            "default": "camel",
             "type": "string",
             "description": "The output case style",
-            "x-ms-summary": "Output Case"
+            "x-ms-summary": "Output Case",
+            "required" : true
           },
           {
             "name": "number",
@@ -1409,13 +1402,12 @@
           {
             "name": "output-case",
             "in": "formData",
-            "required": false,
-            "enum": [
-              "camel"
-            ],
+            "x-ms-visibility": "internal",
+            "default": "camel",
             "type": "string",
             "description": "The output case style",
-            "x-ms-summary": "Output Case"
+            "x-ms-summary": "Output Case",
+            "required" : true
           },
           {
             "name": "email",
@@ -1491,13 +1483,12 @@
           {
             "name": "output-case",
             "in": "formData",
-            "required": false,
-            "enum": [
-              "camel"
-            ],
+            "x-ms-visibility": "internal",
+            "default": "camel",
             "type": "string",
             "description": "The output case style",
-            "x-ms-summary": "Output Case"
+            "x-ms-summary": "Output Case",
+            "required" : true
           },
           {
             "name": "ua",
@@ -1612,13 +1603,12 @@
           {
             "name": "output-case",
             "in": "formData",
-            "required": false,
-            "enum": [
-              "camel"
-            ],
+            "x-ms-visibility": "internal",
+            "default": "camel",
             "type": "string",
             "description": "The output case style",
-            "x-ms-summary": "Output Case"
+            "x-ms-summary": "Output Case",
+            "required" : true
           },
           {
             "name": "content",
@@ -1784,13 +1774,12 @@
           {
             "name": "output-case",
             "in": "formData",
-            "required": false,
-            "enum": [
-              "camel"
-            ],
+            "x-ms-visibility": "internal",
+            "default": "camel",
             "type": "string",
             "description": "The output case style",
-            "x-ms-summary": "Output Case"
+            "x-ms-summary": "Output Case",
+            "required" : true
           },
           {
             "name": "email",
@@ -1866,13 +1855,12 @@
           {
             "name": "output-case",
             "in": "formData",
-            "required": false,
-            "enum": [
-              "camel"
-            ],
+            "x-ms-visibility": "internal",
+            "default": "camel",
             "type": "string",
             "description": "The output case style",
-            "x-ms-summary": "Output Case"
+            "x-ms-summary": "Output Case",
+            "required" : true
           },
           {
             "name": "ip",
@@ -1948,13 +1936,12 @@
           {
             "name": "output-case",
             "in": "formData",
-            "required": false,
-            "enum": [
-              "camel"
-            ],
+            "x-ms-visibility": "internal",
+            "default": "camel",
             "type": "string",
             "description": "The output case style",
-            "x-ms-summary": "Output Case"
+            "x-ms-summary": "Output Case",
+            "required" : true
           },
           {
             "name": "ip",
@@ -2021,13 +2008,12 @@
           {
             "name": "output-case",
             "in": "formData",
-            "required": false,
-            "enum": [
-              "camel"
-            ],
+            "x-ms-visibility": "internal",
+            "default": "camel",
             "type": "string",
             "description": "The output case style",
-            "x-ms-summary": "Output Case"
+            "x-ms-summary": "Output Case",
+            "required" : true
           },
           {
             "name": "host",
@@ -2112,13 +2098,12 @@
           {
             "name": "output-case",
             "in": "formData",
-            "required": false,
-            "enum": [
-              "camel"
-            ],
+            "x-ms-visibility": "internal",
+            "default": "camel",
             "type": "string",
             "description": "The output case style",
-            "x-ms-summary": "Output Case"
+            "x-ms-summary": "Output Case",
+            "required" : true
           },
           {
             "name": "address",
@@ -2269,13 +2254,12 @@
           {
             "name": "output-case",
             "in": "formData",
-            "required": false,
-            "enum": [
-              "camel"
-            ],
+            "x-ms-visibility": "internal",
+            "default": "camel",
             "type": "string",
             "description": "The output case style",
-            "x-ms-summary": "Output Case"
+            "x-ms-summary": "Output Case",
+            "required" : true
           },
           {
             "name": "ip",
@@ -2351,13 +2335,12 @@
           {
             "name": "output-case",
             "in": "formData",
-            "required": false,
-            "enum": [
-              "camel"
-            ],
+            "x-ms-visibility": "internal",
+            "default": "camel",
             "type": "string",
             "description": "The output case style",
-            "x-ms-summary": "Output Case"
+            "x-ms-summary": "Output Case",
+            "required" : true
           },
           {
             "name": "latitude",
@@ -2466,13 +2449,12 @@
           {
             "name": "output-case",
             "in": "formData",
-            "required": false,
-            "enum": [
-              "camel"
-            ],
+            "x-ms-visibility": "internal",
+            "default": "camel",
             "type": "string",
             "description": "The output case style",
-            "x-ms-summary": "Output Case"
+            "x-ms-summary": "Output Case",
+            "required" : true
           },
           {
             "name": "from-value",
@@ -2555,13 +2537,12 @@
           {
             "name": "output-case",
             "in": "formData",
-            "required": false,
-            "enum": [
-              "camel"
-            ],
+            "x-ms-visibility": "internal",
+            "default": "camel",
             "type": "string",
             "description": "The output case style",
-            "x-ms-summary": "Output Case"
+            "x-ms-summary": "Output Case",
+            "required" : true
           },
           {
             "name": "bin-number",
@@ -2710,13 +2691,12 @@
           {
             "name": "output-case",
             "in": "formData",
-            "required": false,
-            "enum": [
-              "camel"
-            ],
+            "x-ms-visibility": "internal",
+            "default": "camel",
             "type": "string",
             "description": "The output case style",
-            "x-ms-summary": "Output Case"
+            "x-ms-summary": "Output Case",
+            "required" : true
           },
           {
             "name": "url",
@@ -2900,13 +2880,12 @@
           {
             "name": "output-case",
             "in": "formData",
-            "required": false,
-            "enum": [
-              "camel"
-            ],
+            "x-ms-visibility": "internal",
+            "default": "camel",
             "type": "string",
             "description": "The output case style",
-            "x-ms-summary": "Output Case"
+            "x-ms-summary": "Output Case",
+            "required" : true
           },
           {
             "name": "url",

@@ -4,7 +4,7 @@ info:
   description: A complete collection of all publicly available endpoints and methods
     for the Mailjet API
   version: '1.0'
-  contact: {email: clement@carfup.com, name: Clément OLIVIER, url: 'https://stuffandtacos.azurewebsites.net/'}
+  contact: {email: clement@carfup.com, name: Clement OLIVIER, url: 'https://stuffandtacos.azurewebsites.net/'}
 host: api.mailjet.com
 basePath: /
 schemes: [https]
@@ -30,22 +30,25 @@ paths:
                       items:
                         type: object
                         properties:
-                          ErrorIdentifier: {type: string, description: ErrorIdentifier}
-                          ErrorCode: {type: string, description: ErrorCode}
-                          StatusCode: {type: integer, format: int32, description: StatusCode}
-                          ErrorMessage: {type: string, description: ErrorMessage}
-                          ErrorRelatedTo: {type: string, description: ErrorRelatedTo}
+                          ErrorIdentifier: {type: string, description: Error Identifier}
+                          ErrorCode: {type: string, description: Error Code}
+                          StatusCode: {type: integer, format: int32, description: Status
+                              Code}
+                          ErrorMessage: {type: string, description: Error Message}
+                          ErrorRelatedTo: {type: string, description: Error Related
+                              To}
                       description: Errors
-                    CustomID: {type: string, description: CustomID}
+                    CustomID: {type: string, description: Custom ID}
                     To:
                       type: array
                       items:
                         type: object
                         properties:
                           Email: {type: string, description: Email}
-                          MessageUUID: {type: string, description: MessageUUID}
-                          MessageID: {type: integer, format: int32, description: MessageID}
-                          MessageHref: {type: string, description: MessageHref}
+                          MessageUUID: {type: string, description: Message UUID}
+                          MessageID: {type: integer, format: int32, description: Message
+                              ID}
+                          MessageHref: {type: string, description: Message Href}
                       description: To
                     Cc:
                       type: array
@@ -53,9 +56,10 @@ paths:
                         type: object
                         properties:
                           Email: {type: string, description: Email}
-                          MessageUUID: {type: string, description: MessageUUID}
-                          MessageID: {type: integer, format: int32, description: MessageID}
-                          MessageHref: {type: string, description: MessageHref}
+                          MessageUUID: {type: string, description: Message UUID}
+                          MessageID: {type: integer, format: int32, description: Message
+                              ID}
+                          MessageHref: {type: string, description: Message Href}
                       description: Cc
                     Bcc:
                       type: array
@@ -63,9 +67,10 @@ paths:
                         type: object
                         properties:
                           Email: {type: string, description: Email}
-                          MessageUUID: {type: string, description: MessageUUID}
-                          MessageID: {type: integer, format: int32, description: MessageID}
-                          MessageHref: {type: string, description: MessageHref}
+                          MessageUUID: {type: string, description: Message UUID}
+                          MessageID: {type: integer, format: int32, description: Message
+                              ID}
+                          MessageHref: {type: string, description: Message Href}
                       description: Bcc
                 description: Messages
       summary: Send Email v3.1
@@ -150,8 +155,8 @@ paths:
                     description: Attachments
                 required: [From, To]
               description: Messages
-            SandboxMode: {type: boolean, description: SandboxMode, title: SandboxMode}
-            AdvanceErrorHandling: {type: boolean, description: AdvanceErrorHandling,
+            SandboxMode: {type: boolean, description: Sandbox Mode, title: SandboxMode}
+            AdvanceErrorHandling: {type: boolean, description: Advance Error Handling,
               title: AdvanceErrorHandling}
           required: [Messages]
   /v3/send:
@@ -173,8 +178,8 @@ paths:
               items:
                 type: object
                 properties:
-                  FromEmail: {type: string, description: FromEmail, title: From Email}
-                  FromName: {type: string, description: FromName, title: From Name}
+                  FromEmail: {type: string, description: From Email, title: From Email}
+                  FromName: {type: string, description: From Name, title: From Name}
                   Sender: {type: boolean, description: Sender, title: Sender}
                   Recipients:
                     type: array
@@ -220,8 +225,9 @@ paths:
                   type: object
                   properties:
                     Email: {type: string, description: Email}
-                    MessageID: {type: integer, format: int32, description: MessageID}
-                    MessageUUID: {type: string, description: MessageUUID}
+                    MessageID: {type: integer, format: int32, description: Message
+                        ID}
+                    MessageUUID: {type: string, description: Message UUID}
                 description: Sent
   /v3/REST/message:
     get:
@@ -275,7 +281,7 @@ paths:
                 description: Data
               Total: {type: integer, format: int32, description: Total}
       summary: Get Messages Information
-      description: Retrieve sending / size / spam information about all messages
+      description: Retrieve sending/size/spam information about all messages
       operationId: GetMessagesInformation
       parameters:
       - {name: CampaignID, in: query, required: false, type: integer, description: Retrieves
@@ -444,7 +450,57 @@ paths:
               title: IsDeleted
               enum: [true, false]
           required: [Name]
+    get:
+      responses:
+        '200':
+          description: default
+          schema:
+            type: object
+            properties:
+              Count: {type: integer, format: int32, description: Count}
+              Data:
+                type: array
+                items: {$ref: '#/definitions/ContactsListResponse'}
+                description: Data
+              Total: {type: integer, format: int32, description: Total}
+      summary: Get Contact Lists
+      description: Retrieve details for all contact lists - name, subscriber count, creation timestamp, deletion status.
+      operationId: GetContactLists
+      parameters:
+      - {name: Address, in: query, required: false, type: string}
+      - {name: ExcludeID, in: query, required: false, type: integer }
+      - {name: IsDeleted, in: query, required: false, type: boolean}
+      - {name: Name, in: query, required: false, type: string}
+      - {name: Limit, in: query, required: false, type: integer, default: 10, description: Limit
+          the response to a select number of returned objects, x-ms-summary: Limit,
+        format: int32}
+      - {name: OffSet, in: query, required: false, type: integer, description: Retrieve
+          a list of objects starting from a certain offset}
+      - {name: countOnly, in: query, required: false, type: boolean}
+      - {name: Sort, in: query, required: false, type: string, description: Specify
+          a property name for this query parameter to sort the objects in Data}
   /v3/REST/contactslist/{list_ID}:
+    get:
+      responses:
+        '200':
+          description: default
+          schema:
+            type: object
+            properties:
+              Count: {type: integer, format: int32, description: Count}
+              Data:
+                type: array
+                items: {$ref: '#/definitions/ContactsListResponse'}
+                description: Data
+              Total: {type: integer, format: int32, description: Total}
+      summary: Get Contact List By ID
+      description: Retrieve details for a specific contact list - name, subscriber
+        count, creation timestamp, deletion status.
+      operationId: GetContactListByID
+      parameters:
+      - {name: list_ID, in: path, required: true, type: string, description: Unique
+          numeric ID assigned to this contact list., x-ms-summary: Unique numeric
+          ID assigned to this contact list.}
     delete:
       responses:
         '200':
@@ -598,15 +654,20 @@ paths:
                 items:
                   type: object
                   properties:
-                    ClickedCount: {type: integer, format: int32, description: ClickedCount}
-                    DeliveredCount: {type: integer, format: int32, description: DeliveredCount}
-                    EditMode: {type: string, description: EditMode}
-                    EditType: {type: string, description: EditType}
+                    ClickedCount: {type: integer, format: int32, description: Clicked
+                        Count}
+                    DeliveredCount: {type: integer, format: int32, description: Delivered
+                        Count}
+                    EditMode: {type: string, description: Edit Mode}
+                    EditType: {type: string, description: Edit Type}
                     ID: {type: integer, format: int32, description: ID}
-                    IDType: {type: string, description: IDType}
-                    OpenedCount: {type: integer, format: int32, description: OpenedCount}
-                    ProcessedCount: {type: integer, format: int32, description: ProcessedCount}
-                    SendTimeStart: {type: integer, format: int32, description: SendTimeStart}
+                    IDType: {type: string, description: ID Type}
+                    OpenedCount: {type: integer, format: int32, description: Opened
+                        Count}
+                    ProcessedCount: {type: integer, format: int32, description: Processed
+                        Count}
+                    SendTimeStart: {type: integer, format: int32, description: Send
+                        Time Start}
                     Starred: {type: boolean, description: Starred}
                     Status: {type: integer, format: int32, description: Status}
                     Subject: {type: string, description: Subject}
@@ -632,24 +693,40 @@ paths:
                 items:
                   type: object
                   properties:
-                    BlockedCount: {type: integer, format: int32, description: BlockedCount}
-                    BouncedCount: {type: integer, format: int32, description: BouncedCount}
-                    ClickedCount: {type: integer, format: int32, description: ClickedCount}
-                    ContactID: {type: integer, format: int32, description: ContactID}
-                    DeferredCount: {type: integer, format: int32, description: DeferredCount}
-                    DeliveredCount: {type: integer, format: int32, description: DeliveredCount}
-                    HardbouncedCount: {type: integer, format: int32, description: HardbouncedCount}
-                    LastActivityAt: {type: string, description: LastActivityAt, title: LastActivityAt,
-                      format: date-time}
-                    MarketingContacts: {type: integer, format: int32, description: MarketingContacts}
-                    OpenedCount: {type: integer, format: int32, description: OpenedCount}
-                    ProcessedCount: {type: integer, format: int32, description: ProcessedCount}
-                    QueuedCount: {type: integer, format: int32, description: QueuedCount}
-                    SoftbouncedCount: {type: integer, format: int32, description: SoftbouncedCount}
-                    SpamComplaintCount: {type: integer, format: int32, description: SpamComplaintCount}
-                    UnsubscribedCount: {type: integer, format: int32, description: UnsubscribedCount}
-                    UserMarketingContacts: {type: integer, format: int32, description: UserMarketingContacts}
-                    WorkFlowExitedCount: {type: integer, format: int32, description: WorkFlowExitedCount}
+                    BlockedCount: {type: integer, format: int32, description: Blocked
+                        Count}
+                    BouncedCount: {type: integer, format: int32, description: Bounced
+                        Count}
+                    ClickedCount: {type: integer, format: int32, description: Clicked
+                        Count}
+                    ContactID: {type: integer, format: int32, description: Contact
+                        ID}
+                    DeferredCount: {type: integer, format: int32, description: Deferred
+                        Count}
+                    DeliveredCount: {type: integer, format: int32, description: Delivered
+                        Count}
+                    HardbouncedCount: {type: integer, format: int32, description: Hardbounced
+                        Count}
+                    LastActivityAt: {type: string, description: Last Activity At,
+                      title: LastActivityAt, format: date-time}
+                    MarketingContacts: {type: integer, format: int32, description: Marketing
+                        Contacts}
+                    OpenedCount: {type: integer, format: int32, description: Opened
+                        Count}
+                    ProcessedCount: {type: integer, format: int32, description: Processed
+                        Count}
+                    QueuedCount: {type: integer, format: int32, description: Queued
+                        Count}
+                    SoftbouncedCount: {type: integer, format: int32, description: Soft
+                        bounced Count}
+                    SpamComplaintCount: {type: integer, format: int32, description: Spam
+                        Complaint Count}
+                    UnsubscribedCount: {type: integer, format: int32, description: Unsubscribed
+                        Count}
+                    UserMarketingContacts: {type: integer, format: int32, description: User
+                        Marketing Contacts}
+                    WorkFlowExitedCount: {type: integer, format: int32, description: WorkFlow
+                        Exited Count}
                 description: Data
               Total: {type: integer, format: int32, description: Total}
       parameters: []
@@ -657,6 +734,67 @@ paths:
         grouped by contact
       summary: Get Contacts Statistics
       operationId: GetContactsStatistics
+  /v3/REST/contactdata:
+    get:
+      responses:
+        '200':
+          description: default
+          schema:
+            type: object
+            properties:
+              Count: {type: integer, format: int32, description: Count}
+              Data:
+                type: array
+                items: {$ref: '#/definitions/ContactDataResponse'}
+                description: Data
+              Total: {type: integer, format: int32, description: Total}
+      summary: Get Contacts Data
+      description: Get information on all contacts and the property values associated
+        with them
+      operationId: GetContactsData
+      parameters:
+      - {name: Campaign, in: query, required: false, type: integer, description: 'Retrieves
+          a list of contact property values only for the contacts, which received
+          emails from this Campaign ID', x-ms-summary: Campaign, format: int32}
+      - {name: ContactEmail, in: query, required: false, type: string, description: Retrieves
+          a list of contact property values only for the contact with this email address}
+      - {name: ContactsList, in: query, required: false, type: integer, description: Retrieves
+          a list of contact property values only for the contacts that are part of
+          this contact list ID}
+      - {name: Fields, in: query, required: false, type: string, description: Multiple
+          properties can be specified by separating them with commas}
+      - {name: LastActivityAt, in: query, required: false, type: string, description: Retrieves
+          a list of contact property values only for the contacts}
+      - {name: Limit, in: query, required: false, type: integer, default: 10, description: Limit
+          the response to a select number of returned objects, x-ms-summary: Limit,
+        format: int32}
+      - {name: OffSet, in: query, required: false, type: integer, description: Retrieve
+          a list of objects starting from a certain offset}
+      - {name: countOnly, in: query, required: false, type: boolean}
+      - {name: Sort, in: query, required: false, type: string, description: Specify
+          a property name for this query parameter to sort the objects in Data}
+  /v3/REST/contactdata/{contactID}:
+    get:
+      responses:
+        '200':
+          description: default
+          schema:
+            type: object
+            properties:
+              Count: {type: integer, format: int32, description: Count}
+              Data:
+                type: array
+                items: {$ref: '#/definitions/ContactDataResponse'}
+                description: Data
+              Total: {type: integer, format: int32, description: Total}
+      summary: Get Contact Data By ID
+      description: Retrieve all properties and respective values associated with a
+        specific contact
+      operationId: GetContactDataByID
+      parameters:
+      - {name: contactID, in: path, required: true, type: integer, description: 'Unique
+          numeric ID for the contact, whose properties you want to retriev', x-ms-summary: Contact
+          ID, format: int32}
 definitions:
   Attachment:
     type: object
@@ -676,19 +814,19 @@ definitions:
         description: Edit mode for the campaign draft.
         title: Edit Mode
         enum: [tool2, html2, mjml]
-      IsStarred: {type: boolean, description: IsStarred}
-      IsTextPartIncluded: {type: boolean, description: IsTextPartIncluded}
-      ReplyEmail: {type: string, description: ReplyEmail}
-      SenderName: {type: string, description: SenderName}
-      TemplateID: {type: integer, description: TemplateID}
+      IsStarred: {type: boolean, description: Is Starred}
+      IsTextPartIncluded: {type: boolean, description: Is Text Part Included}
+      ReplyEmail: {type: string, description: Reply Email}
+      SenderName: {type: string, description: Sender Name}
+      TemplateID: {type: integer, description: Template ID}
       Title: {type: string, description: Title}
-      ContactsListID: {type: string, description: ContactsListID}
-      ContactsListAlt: {type: string, description: ContactsListAlt}
+      ContactsListID: {type: string, description: Contacts List ID}
+      ContactsListAlt: {type: string, description: Contacts List Alt}
       Locale: {type: string, description: Locale, title: ''}
-      SegmentationID: {type: integer, description: SegmentationID}
-      SegmentationAlt: {type: string, description: SegmentationAlt}
+      SegmentationID: {type: integer, description: Segmentation ID}
+      SegmentationAlt: {type: string, description: Segmentation Alt}
       Sender: {type: string, description: Sender}
-      SenderEmail: {type: string, description: SenderEmail}
+      SenderEmail: {type: string, description: Sender Email}
       Subject: {type: string, description: Subject, title: Subject}
     required: [Locale, Subject]
   CampaignDetailContent:
@@ -696,106 +834,120 @@ definitions:
     properties:
       Headers: {type: string, description: Headers}
       Html-part: {type: string, description: Html-part}
-      MJMLContent: {type: string, description: MJMLContent}
+      MJMLContent: {type: string, description: MJML Content}
       Text-part: {type: string, description: Text-part}
   MessageResponse:
     type: object
     properties:
-      ArrivedAt: {type: string, description: ArrivedAt}
-      AttachmentCount: {type: integer, description: AttachmentCount}
-      AttemptCount: {type: integer, description: AttemptCount}
-      CampaignID: {type: integer, description: CampaignID}
-      ContactAlt: {type: string, description: ContactAlt}
-      ContactID: {type: integer, description: ContactID}
+      ArrivedAt: {type: string, description: Arrived At}
+      AttachmentCount: {type: integer, description: Attachment Count}
+      AttemptCount: {type: integer, description: Attempt Count}
+      CampaignID: {type: integer, description: Campaign ID}
+      ContactAlt: {type: string, description: Contact Alt}
+      ContactID: {type: integer, description: Contact ID}
       Delay: {type: number, description: Delay}
-      DestinationID: {type: integer, description: DestinationID}
-      FilterTime: {type: integer, description: FilterTime}
+      DestinationID: {type: integer, description: Destination ID}
+      FilterTime: {type: integer, description: Filter Time}
       ID: {type: integer, description: ID}
-      IsClickTracked: {type: boolean, description: IsClickTracked}
-      IsHTMLPartIncluded: {type: boolean, description: IsHTMLPartIncluded}
-      IsOpenTracked: {type: boolean, description: IsOpenTracked}
-      IsTextPartIncluded: {type: boolean, description: IsTextPartIncluded}
-      IsUnsubTracked: {type: boolean, description: IsUnsubTracked}
-      MessageSize: {type: integer, description: MessageSize}
-      SenderID: {type: integer, description: SenderID}
-      SpamassassinScore: {type: number, description: SpamassassinScore}
-      SpamassRules: {type: string, description: SpamassRules}
-      StateID: {type: integer, description: StateID}
-      StatePermanent: {type: boolean, description: StatePermanent}
+      IsClickTracked: {type: boolean, description: Is Click Tracked}
+      IsHTMLPartIncluded: {type: boolean, description: Is HTML Part Included}
+      IsOpenTracked: {type: boolean, description: Is Open Tracked}
+      IsTextPartIncluded: {type: boolean, description: Is Text Part Included}
+      IsUnsubTracked: {type: boolean, description: Is Unsubscription Tracked}
+      MessageSize: {type: integer, description: Message Size}
+      SenderID: {type: integer, description: Sender ID}
+      SpamassassinScore: {type: number, description: Spamassassin Score}
+      SpamassRules: {type: string, description: Spamass Rules}
+      StateID: {type: integer, description: State ID}
+      StatePermanent: {type: boolean, description: State Permanent}
       Status: {type: string, description: Status}
       Subject: {type: string, description: Subject}
       UUID: {type: string, description: UUID}
   MessageInformationResponse:
     type: object
     properties:
-      CampaignID: {type: integer, format: int32, description: CampaignID}
-      ClickTrackedCount: {type: integer, format: int32, description: ClickTrackedCount}
-      ContactID: {type: integer, format: int32, description: ContactID}
-      CreatedAt: {type: string, description: CreatedAt, title: CreatedAt, format: date-time}
+      CampaignID: {type: integer, format: int32, description: Campaign ID}
+      ClickTrackedCount: {type: integer, format: int32, description: Click Tracked
+          Count}
+      ContactID: {type: integer, format: int32, description: Contact ID}
+      CreatedAt: {type: string, description: Created At, title: CreatedAt, format: date-time}
       ID: {type: integer, format: int32, description: ID}
-      MessageSize: {type: integer, format: int32, description: MessageSize}
-      OpenTrackedCount: {type: integer, format: int32, description: OpenTrackedCount}
-      QueuedCount: {type: integer, format: int32, description: QueuedCount}
-      SendEndAt: {type: string, description: SendEndAt}
-      SentCount: {type: integer, format: int32, description: SentCount}
+      MessageSize: {type: integer, format: int32, description: Message Size}
+      OpenTrackedCount: {type: integer, format: int32, description: Open Tracked Count}
+      QueuedCount: {type: integer, format: int32, description: Queued Count}
+      SendEndAt: {type: string, description: Send End At}
+      SentCount: {type: integer, format: int32, description: Sent Count}
       SpamAssassinRules:
         type: object
         properties: {}
-        description: SpamAssassinRules
-      SpamAssassinScore: {type: number, description: SpamAssassinScore}
+        description: Spam Assassin Rules
+      SpamAssassinScore: {type: number, description: Spam Assassin Score}
   ContactResponse:
     type: object
     properties:
-      IsExcludedFromCampaigns: {type: boolean, description: IsExcludedFromCampaigns}
+      IsExcludedFromCampaigns: {type: boolean, description: Is Excluded FromCampaigns}
       Name: {type: string, description: Name}
-      CreatedAt: {type: string, description: CreatedAt, title: CreatedAt, format: date-time}
-      DeliveredCount: {type: integer, format: int32, description: DeliveredCount}
+      CreatedAt: {type: string, description: Created At, title: CreatedAt, format: date-time}
+      DeliveredCount: {type: integer, format: int32, description: Delivered Count}
       Email: {type: string, description: Email}
-      ExclusionFromCampaignsUpdatedAt: {type: string, description: ExclusionFromCampaignsUpdatedAt}
+      ExclusionFromCampaignsUpdatedAt: {type: string, description: Exclusion From
+          Campaigns Updated At}
       ID: {type: integer, format: int32, description: ID}
-      IsOptInPending: {type: boolean, description: IsOptInPending}
-      IsSpamComplaining: {type: boolean, description: IsSpamComplaining}
-      LastActivityAt: {type: string, description: LastActivityAt, title: LastActivityAt,
+      IsOptInPending: {type: boolean, description: Is OptIn Pending}
+      IsSpamComplaining: {type: boolean, description: Is Spam Complaining}
+      LastActivityAt: {type: string, description: Last Activity At, title: LastActivityAt,
         format: date-time}
-      LastUpdateAt: {type: string, description: LastUpdateAt, title: LastUpdateAt,
+      LastUpdateAt: {type: string, description: Last Update At, title: LastUpdateAt,
         format: date-time}
   ContactsListResponse:
     type: object
     properties:
       Name: {type: string, description: Name}
       Address: {type: string, description: Address}
-      CreatedAt: {type: string, description: CreatedAt, title: CreatedAt, format: date-time}
+      CreatedAt: {type: string, description: Created At, title: CreatedAt, format: date-time}
       ID: {type: integer, format: int32, description: ID}
-      SubscriberCount: {type: integer, format: int32, description: SubscriberCount}
+      SubscriberCount: {type: integer, format: int32, description: Subscriber Count}
   CampaignDraftResponse:
     type: object
     properties:
-      AXFraction: {type: integer, description: AXFraction}
-      AXFractionName: {type: string, description: AXFractionName}
-      AXTesting: {type: string, description: AXTesting}
+      AXFraction: {type: integer, description: AX Fraction}
+      AXFractionName: {type: string, description: AX Fraction Name}
+      AXTesting: {type: string, description: AX Testing}
       Current: {type: integer, format: int32, description: Current}
-      EditMode: {type: string, description: EditMode}
-      IsStarred: {type: boolean, description: IsStarred}
-      IsTextPartIncluded: {type: boolean, description: IsTextPartIncluded}
-      ReplyEmail: {type: string, description: ReplyEmail}
-      SenderName: {type: string, description: SenderName}
-      TemplateID: {type: integer, format: int32, description: TemplateID}
+      EditMode: {type: string, description: Edit Mode}
+      IsStarred: {type: boolean, description: Is Starred}
+      IsTextPartIncluded: {type: boolean, description: Is TextPart Included}
+      ReplyEmail: {type: string, description: Reply Email}
+      SenderName: {type: string, description: Sender Name}
+      TemplateID: {type: integer, format: int32, description: Template ID}
       Title: {type: string, description: Title}
-      CampaignID: {type: integer, format: int32, description: CampaignID}
-      ContactsListID: {type: integer, format: int32, description: ContactsListID}
-      CreatedAt: {type: string, description: CreatedAt, title: CreatedAt, format: date-time}
-      DeliveredAt: {type: string, description: DeliveredAt, title: DeliveredAt, format: date-time}
+      CampaignID: {type: integer, format: int32, description: Campaign ID}
+      ContactsListID: {type: integer, format: int32, description: Contacts List ID}
+      CreatedAt: {type: string, description: Created At, title: CreatedAt, format: date-time}
+      DeliveredAt: {type: string, description: Delivered At, title: DeliveredAt, format: date-time}
       ID: {type: integer, format: int32, description: ID}
       Locale: {type: string, description: Locale}
-      ModifiedAt: {type: string, description: ModifiedAt, title: ModifiedAt, format: date-time}
+      ModifiedAt: {type: string, description: Modified At, title: ModifiedAt, format: date-time}
       Preset: {type: string, description: Preset}
-      SegmentationID: {type: integer, format: int32, description: SegmentationID}
+      SegmentationID: {type: integer, format: int32, description: Segmentation ID}
       Sender: {type: string, description: Sender}
-      SenderEmail: {type: string, description: SenderEmail}
+      SenderEmail: {type: string, description: Sender Email}
       Status: {type: integer, format: int32, description: Status}
       Subject: {type: string, description: Subject}
       Url: {type: string, description: Url}
       Used: {type: boolean, description: Used}
+  ContactDataResponse:
+    type: object
+    properties:
+      ContactID: {type: integer, format: int32, description: Unique numeric ID for
+          this contact}
+      Data:
+        type: array
+        items: {}
+        description: A JSON array containing contact properties and their values
+      ID: {type: integer, format: int32, description: Unique numeric ID for this contact's
+          Data object}
+      MethodCollection: {type: string, description: MethodCollection}
 parameters: {}
 responses: {}
 securityDefinitions:

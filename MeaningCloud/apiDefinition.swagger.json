@@ -520,7 +520,7 @@
                   "type": "object",
                   "properties": {
                     "code": {
-                      "type": "string",
+                      "type": "integer",
                       "x-ms-summary": "Status code",
                       "description": "Numerical value of result code."
                     },
@@ -530,12 +530,12 @@
                       "description": "Human-readable error code, if any, or OK."
                     },
                     "credits": {
-                      "type": "string",
+                      "type": "integer",
                       "x-ms-summary": "Credits",
                       "description": "Credits consumed by the request. A credit corresponds to a bucket of 500 words."
                     },
                     "remaining_credits": {
-                      "type": "string",
+                      "type": "integer",
                       "x-ms-summary": "Remaining credits",
                       "description": "Credits left to reach the usage limit."
                     }
@@ -974,7 +974,7 @@
                   "type": "object",
                   "properties": {
                     "code": {
-                      "type": "string",
+                      "type": "integer",
                       "x-ms-summary": "Status code",
                       "description": "Numerical value of result code."
                     },
@@ -984,12 +984,12 @@
                       "description": "Human-readable error code, if any, or OK."
                     },
                     "credits": {
-                      "type": "string",
+                      "type": "integer",
                       "x-ms-summary": "Credits",
                       "description": "Credits consumed by the request. A credit corresponds to a bucket of 500 words."
                     },
                     "remaining_credits": {
-                      "type": "string",
+                      "type": "integer",
                       "x-ms-summary": "Remaining credits",
                       "description": "Credits left to reach the usage limit."
                     }
@@ -1124,7 +1124,7 @@
                         "description": "Contains the title assigned to the cluster. If more than one term is assigned, they will be separated by commas."
                       },
                       "size": {
-                        "type": "string",
+                        "type": "integer",
                         "x-ms-summary": "Size",
                         "description": "Contains the number of documents included in the cluster."
                       },
@@ -1362,7 +1362,8 @@
                       "x-ms-summary": "CC"
                     },
                     "subject": {
-                      "type": "string",
+                      "type": "array",
+                      "items": {},
                       "x-ms-summary": "Subject",
                       "description": "String with the subject of the email."
                     }

@@ -1,0 +1,378 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Pantry",
+    "description": "Pantry is a free service that provides perishable data storage for small projects. Data is securely stored for as long as you and your users need it and is deleted after a period of inactivity.",
+    "contact": {
+      "email": "clement@carfup.com",
+      "name": "Clement OLIVIER",
+      "url": "https://stuffandtacos.azurewebsites.net/"
+    }
+  },
+  "host": "getpantry.cloud",
+  "basePath": "/apiv1",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/pantry/{PANTRY_ID}": {
+      "get": {
+        "summary": "Get Details",
+        "description": "Given a PantryID, return the details of the pantry, including a list of baskets currently stored inside it.",
+        "operationId": "GetDetails",
+        "parameters": [
+          {
+            "name": "PANTRY_ID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "x-ms-summary": "PANTRY_ID",
+            "description": "Your pantry ID",
+            "x-ms-url-encoding": "single"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "x-ms-visibility": "internal",
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Details",
+        "description": "Update Details of a pantry",
+        "operationId": "UpdateDetails",
+        "parameters": [
+          {
+            "name": "PANTRY_ID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "x-ms-summary": "PANTRY_ID",
+            "description": "Your pantry ID",
+            "x-ms-url-encoding": "single"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json",
+            "x-ms-visibility": "internal"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Pantry name.",
+                  "x-ms-summary": "Pantry name."
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Pantry description.",
+                  "x-ms-summary": "Pantry description."
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Pantry name.",
+                  "x-ms-summary": "Pantry name."
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Pantry description.",
+                  "x-ms-summary": "Pantry description."
+                },
+                "errors": {
+                  "type": "array",
+                  "items": {},
+                  "description": "Pantry errors.",
+                  "x-ms-summary": "Pantry errors."
+                },
+                "notifications": {
+                  "type": "boolean",
+                  "description": "Pantry notifications.",
+                  "x-ms-summary": "Pantry notifications."
+                },
+                "percentFull": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "Usage of the pandry in percentage full.",
+                  "x-ms-summary": "Pantry percentFull."
+                },
+                "baskets": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "Basket name.",
+                        "x-ms-summary": "Basket name."
+                      },
+                      "ttl": {
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "Time to live before being deleted.",
+                        "x-ms-summary": "Time to live."
+                      }
+                    }
+                  },
+                  "description": "List of related baskets.",
+                  "x-ms-summary": "List of baskets."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pantry/{PANTRY_ID}/basket/{BASKET_NAME}": {
+      "get": {
+        "summary": "Get Contents",
+        "description": "Given a basket name, return the full contents of the basket.",
+        "operationId": "GetContents",
+        "parameters": [
+          {
+            "name": "PANTRY_ID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "x-ms-summary": "PANTRY_ID",
+            "description": "Your pantry ID",
+            "x-ms-url-encoding": "single"
+          },
+          {
+            "name": "BASKET_NAME",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "x-ms-summary": "BASKET_NAME",
+            "description": "Basket name.",
+            "x-ms-url-encoding": "single"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json",
+            "x-ms-visibility": "internal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete",
+        "description": "Delete the entire basket. Warning, this action cannot be undone.",
+        "operationId": "Delete",
+        "parameters": [
+          {
+            "name": "PANTRY_ID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "x-ms-summary": "PANTRY_ID",
+            "description": "Your pantry ID",
+            "x-ms-url-encoding": "single"
+          },
+          {
+            "name": "BASKET_NAME",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "x-ms-summary": "Basket name.",
+            "description": "Basket name.",
+            "x-ms-url-encoding": "single"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json",
+            "x-ms-visibility": "internal"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create and or Replace",
+        "description": "Given a basket name as provided in the url, this will either create a new basket inside your pantry, or replace an existing one.",
+        "operationId": "CreateAndOrReplace",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "PANTRY_ID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "x-ms-summary": "PANTRY_ID",
+            "description": "Your pantry ID",
+            "x-ms-url-encoding": "single"
+          },
+          {
+            "name": "BASKET_NAME",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "x-ms-summary": "BASKET_NAME",
+            "description": "Basket name.",
+            "x-ms-url-encoding": "single"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json",
+            "x-ms-visibility": "internal"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object"
+            },
+            "x-ms-summary": "JSON Content",
+            "description": "JSON content you want to send to this basket."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Contents",
+        "description": "Given a basket name, this will update the existing contents and return the contents of the newly updated basket. This operation performs a deep merge and will overwrite the values of any existing keys, or append values to nested objects or arrays.",
+        "operationId": "UpdateContents",
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "PANTRY_ID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "x-ms-summary": "PANTRY_ID",
+            "description": "Your pantry ID",
+            "x-ms-url-encoding": "single"
+          },
+          {
+            "name": "BASKET_NAME",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "x-ms-summary": "Basket name.",
+            "description": "Basket name.",
+            "x-ms-url-encoding": "single"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json",
+            "x-ms-visibility": "internal"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object"
+            },
+            "x-ms-summary": "JSON Content",
+            "description": "JSON content you want to send to this basket."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {},
+  "parameters": {},
+  "responses": {},
+  "securityDefinitions": {},
+  "security": [],
+  "tags": [],
+  "x-ms-connector-metadata": [
+    {
+      "propertyName": "Website",
+      "propertyValue": "https://getpantry.cloud/"
+    },
+    {
+      "propertyName": "Privacy policy",
+      "propertyValue": "https://getpantry.cloud/"
+    },
+    {
+      "propertyName": "Terms and Conditions",
+      "propertyValue": "https://getpantry.cloud/"
+    },
+    {
+      "propertyName": "Categories",
+      "propertyValue": "Data; Content and Files"
+    }
+  ]
+}
